@@ -1,6 +1,6 @@
 {
-	"name": "sciencegamed.co.uk",
-	"description": "The Science: Gamed website",
+	"name": "Science: A Race to Publish",
+	"description": "A card game",
 	"version": "0.1.0",
 	"authors": [
 		{
@@ -11,7 +11,7 @@
 		}
 	],
 	"devDependencies": {
-		"grunt": "~0.4.0",
+		"grunt": "~0.4.1",
 		
 		"grunt-contrib-watch": "~0.3.1",
 		"grunt-contrib-copy": "~0.4.0",
