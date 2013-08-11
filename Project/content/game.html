@@ -1,0 +1,138 @@
+
+<!doctype html>
+<html lang='en-GB'>
+<head>
+	<meta charset='utf-8'>
+	<title>A Race To Publish</title>
+	<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+<link href="btn.css" rel="stylesheet" type="text/css">
+<link href="styles-comiled/header.css" rel="stylesheet" type="text/css">
+<link href="styles-compiled/nav.css" rel="stylesheet" type="text/css">
+<link href="styles-compiled/main.css" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+	<script>
+	var picArray2 = [];
+				function changeImage(){
+ 				var pic = Math.floor(Math.random() * (3 - 0 + 1)) + 0;
+ 
+				
+				
+				picArray2[0] ={src: "//localhost/Users/richardchatwin/MP-website-test/RonaldRoss.png", reputation: 1};
+				
+				picArray2[1] ={src: "//localhost/Users/richardchatwin/MP-website-test/DimitriMendeleev.png", reputation: 9};
+
+				picArray2[2] ={src: "//localhost/Users/richardchatwin/documents/Science-game/poachlabmamber2.jpg", reputation: 1};
+
+				picArray2[3] ={src: "//localhost/Users/richardchatwin/documents/Science-game/labteam.jpg", reputation: 9};
+				
+				
+				document.getElementById("image_container").innerHTML = "<img src='" + picArray2[pic].src + "'/>";
+			
+			}
+				  
+				
+				</script>
+
+<script>
+	function changeImageAI(){
+				
+ 				var pic = Math.floor(Math.random() * (3 - 0 + 1)) + 0;
+ 
+				
+				var picArray = [];
+				picArray[0] ={src: "//localhost/Users/richardchatwin/MP-website-test/RonaldRoss.png", reputation: 4};
+				
+				picArray[1] ={src: "//localhost/Users/richardchatwin/MP-website-test/DimitriMendeleev.png", reputation: 2};
+
+				picArray[2] ={src: "//localhost/Users/richardchatwin/documents/Science-game/poachlabmamber2.jpg", reputation: 2};
+
+				picArray[3] ={src: "//localhost/Users/richardchatwin/documents/Science-game/labteam.jpg", reputation: 3};
+				
+				document.getElementById("image_containerAI").innerHTML = "<img src='" + picArray[pic].src + "'/>";
+
+
+				if(picArray[pic].reputation < picArray2[pic].reputation){
+					document.getElementById("result").innerHTML = "You Win!";
+				}else{
+					document.getElementById("result").innerHTML = "You Lose";
+				}
+}
+
+      
+
+	</script>
+ <script src="jquery-1.10.2.js"></script>
+ <script src="jquery.csv-0.71.js"></script>
+ 	<script>
+function convert(){
+var result = $.csv.toObjects("scientist-card-data-raw.csv");
+document.getElementById("scientistdata").innerHTML = "<p>" + result + "</p>";
+}
+</script>
+
+</head>
+
+<body>
+		<div class = 'header'>
+		
+		<div class='nav non-index-nav'>
+			<a href='/'><div class='logo'></div></a>
+			<ul>
+				<li><a href='/'>home</a></li>
+				<li><a href='/about.html'>about us</a></li>
+				<li><a href='/blog/'>our blog</a></li>
+				<li><a href='/science/'>science stuff</a></li>
+				<li><a href='/games.html'>A fun card game</a></li>
+			</ul>
+		</div>
+
+	</div>
+
+<div id = "wrap">
+<div id= "rules"	
+<h1>To play:</h1>
+</br>
+<ul style="list-style: none;">
+<li><p>1. Generate your scientist card here:<button  id ="btn" onclick= 'changeImage()'>CLICK ME!</button></li>
+<li><p>2. Pick a stat to compete on! This will generate your opponent's card!<select name="mydropdown" id = "btn" onchange= 'changeImageAI()'>
+
+
+<option value="Reputation" >Reputation</option>
+<option value="Controversy" >Controversy</option>
+<option value="Impact" >Impact</option></li>
+</select>
+</ul>
+</div>
+<div id = "main">
+
+
+	
+	<div id="image_container"></div><br/>
+	</div>
+		<!--<button  onclick= 'changeImageAI()'>Click to generate computer's card</button>-->
+<div id = "sidebar">
+	<div id="image_containerAI" ></div><br/>
+
+	
+
+</div>
+
+<div id="result" ></div>
+</div>
+<div id = 'about'>
+	<div class='row'>
+	<div class = 'pic'>
+		<img src = "//localhost/Users/richardchatwin/MP-website-test/SARTPlogo.jpg">
+	</div>	
+	<div class = 'rules'>
+		<h3> About the game</h3>
+		<p>This game is about....</p>
+	</div>	
+	</div>	
+</div>
+	<div id="footer">
+		<p>A game by Science: Gamed LLP registered no. OC371281. Website content and design copyright &copy; 2012</p>
+	</div>
+</body>
+</html>
