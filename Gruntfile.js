@@ -17,6 +17,7 @@ module.exports = function(grunt) {
 		sass: {
 			options: {
 				style: 'compressed'
+				}	
 			},
 			dev: {
 				files: {
@@ -30,9 +31,22 @@ module.exports = function(grunt) {
 				files: {
 					'appfog/public/min.css': 'project/styles/*.scss'
 				}
-			}
-		}
+			},
 		
+		  	fetch: {
+   				 options: {
+				      //file format depends on size: process: require( 'csv-to-json' )
+				    },
+				    table1: {
+				      url: 'https://docs.google.com/a/guardian.co.uk/spreadsheet/ccc?key=123456#gid=0',
+				      dest: 'project/data/table1.json'
+				    },
+				    table2: {
+				      url: 'https://docs.google.com/a/guardian.co.uk/spreadsheet/ccc?key=234567#gid=0',
+				      dest: 'project/data/table2.json'
+				    }
+				  }
+						
 	});
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-sass');
