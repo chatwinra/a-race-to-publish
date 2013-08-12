@@ -17,8 +17,8 @@ module.exports = function(grunt) {
 		sass: {
 			options: {
 				style: 'compressed'
-				}	
-			},
+				},	
+			
 			dev: {
 				files: {
 					'generated/min.css': 'project/styles/*.scss'
@@ -31,7 +31,8 @@ module.exports = function(grunt) {
 				files: {
 					'appfog/public/min.css': 'project/styles/*.scss'
 				}
-			},
+			}
+		},
 		
 		  	fetch: {
    				 options: {
