@@ -1,5 +1,4 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang='en-GB'>
 <head>
 	<meta charset='utf-8'>
@@ -9,7 +8,7 @@
 <link href="../../generated/min.css" rel="stylesheet" type="text/javascript">
 <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
-<script src ='../scripts/cardgeneration.js'> </script>	
+<script type="text/javascript" src="jQuery-1.10.2.js"></script>
 
 </head>
 
@@ -30,103 +29,160 @@
 	</div>
 
 
-<div id= "rules"	
-<h1>To play:</h1>
+<div id='container'></div>
+
+<script id='tpl' type='text/ractive'>
+<div id="rules">
 </br>
-<ul style="list-style: none;">
-<li><p>1. Generate your scientist card here:<button  id ="btn" onclick= 'changeImage()'>CLICK ME!</button></li>
-<li><p>2. Pick a stat to compete on! This will generate your opponent's card!<select name="mydropdown" id = "btn" onchange= 'changeImageAI()'>
+<h1>To play:</h1>    
+ <ul>
+<li>1. Generate your scientist card here: <button on-click='pickName'>pick a name</button></li>
+{{#playerCard}}
+<li>2. you have your card! Now pick a stat to compete on... This will generate your opponents card!</li>
+</br>
+<button id='reputation' value='reputation'>Reputation</button>
+</br>
+<button id='controversy' value='controversy'>Controversy</button>
+</br>
+<button id='impact'value='impact'>Impact</button>
 
 
-<option value="Reputation" >Reputation</option>
-<option value="Controversy" >Controversy</option>
-<option value="Impact" >Impact</option></li>
-</select>
+{{/playerCard}}
+
 </ul>
 </div>
 
-
-
-	
-<div id = 'wrap'>
-<div id = 'main'>	
-<div class = 'card-border'>
-        	<div class = 'floater'>
-        	<div class = 'inner-card-border'>
-        	
-        	<p id = 'text-name-container'></p>
-        	
-              <hr class = 'hr'>
+{{#playerCard}}
+<div id='template'>
+<div id='main'> 
+<div class='card-border'>
+          <div class='floater'>
+          <div class='inner-card-border'>
+          
+          <p id='text-name-container'>{{name}} {{discipline}} {{discipline2}}</p>
+          
+              <hr class='hr'>
             <div class='pic-container'>
             </div>
-            <hr class = 'hr'>
-            <p id = 'text-desc-container'></p>
+            <hr class='hr'>
+            <p>Reputation: {{reputation}}</p>
+            <p>Impact: {{impact}}</p>
+            <p>Controversy: {{controversy}}</p>
+            <p id='text-desc-container'>{{description}}</p>
         </div>
         </div>
    
     </div>
-   </div> 
+  
+{{/playerCard}}
 
-<div id = 'sidebar'>	
-<div class = 'card-border'>
-        	<div class = 'floater'>
-        	<div class = 'inner-card-border'>
-        	
-        	<p id = 'text-name-container'></p>
-        	
-              <hr class = 'hr'>
-            <div class='pic-container'>
-            </div>
-            <hr class = 'hr'>
-            <p id = 'text-desc-container'></p>
-        </div>
-        </div>
-   
-    </div>
-   </div> 
-
-
+{{^playerCard}}
+  <img src='DimitriMendeleev.jpg'></img>
+{{/playerCard}}
+ </div> 
 </div>
 
-<script type="text/javascript">
- 
- var playerCard2 = JSON.parse('[{"name":"Albert Einstein","discipline":"P","discipline2":"test","img src":"test","reputation":10,"impact":10,"controversy":5,"description":"(1879–1955) Born in Germany, developed Theory of Relativity in 1915 whilst working at a patent office in Bern. Awarded Nobel Prize in 1921. ","special":"Special/General Relativity"},{"name":"Alexander Fleming ","discipline":"B","discipline2":"test","img src":"test","reputation":8,"impact":10,"controversy":2,"description":"(1881–1955) Scottish biologist who discovered penecillin by accident when his Staphlococci cultures were contaminated by fungus. Won the 1945 Nobel Prize for Physiology or Medicine.","special":null},{"name":"Andreas Vesalius","discipline":"B","discipline2":"test","img src":"test","reputation":6,"impact":7,"controversy":3,"description":"(1514 –1564) Did public dissections on recently hanged criminals and published his book On the Fabric of the Human Body. Before this, human anatomy had been estimated through animal dissection.","special":null},{"name":"Antoine Lavoisier","discipline":"C","discipline2":"B","img src":"test","reputation":8,"impact":7,"controversy":8,"description":"(1743 –1794) Studied chemistry, botany, maths and astronomy. Identified and named oxygen and hydrogen. Showed oxygen’s role in animal and plant respiration. Guillotined during the French Revolution, but later exonerated.","special":null}]');
 
 
 
+{{#compCard}}
+<div id='sidebar'>	
+ <p>{{message}}</p>
+<div class='card-border'>
+          <div class='floater'>
+          <div class='inner-card-border'>
+          
+          <p id='text-name-container'>{{nameC}} {{disciplineC}} {{discipline2C}}</p>
+          
+              <hr class='hr'>
+            <div class='pic-container'>
+            </div>
+            <hr class='hr'>
+            <p>Reputation: {{reputationC}}</p>
+            <p>Impact: {{impactC}}</p>
+            <p>Controversy: {{controversyC}}</p>
+            <p id='text-desc-container'>{{descriptionC}}</p>
+        </div>
+        </div>
+   
+    </div>
+  
+{{/compCard}}
+{{^compCard}}
+  <img src='DimitriMendeleev.jpg'></img>
 
- 
+{{/compCard}}
+
 </script>
 
 
-    <script id='myTemplate' type='text/ractive'>
-    <p> {{name}} </p>
-    </script>
 
-	<script src='Ractive.js'></script>
-    <script>
-        var ractive = new Ractive({
-            el: 'text-name-container',
-            template: '#myTemplate',
-            data: { name: 'Hello' }
-        });
-      </script>
-      <script id='myTemplate2' type='text/ractive'>
-    <p> {{name}} </p>
-    </script>
+<script src='Ractive.js'></script>  
+<script>
 
-	<script src='Ractive.js'></script>
-   <!-- Old ractive script -->
-  <script>
-   /*
-        var ractive = new Ractive({
-            el: 'text-desc-container',
-            template: '#myTemplate2',
-            data: { description: 'Ronald fixed malaria' }
-        });
-    */
-      </script>
-	
+var rand
+
+ractive = new Ractive({
+    el: 'container',
+    template: '#tpl',
+    data: {
+      playerCard: false,
+      compCard: false
+    }
+    
+});
+
+ractive.on({
+    pickName: function (event){
+      var playerCard2 = JSON.parse('[{"name":"Albert Einstein","discipline":"P","discipline2":"test","img src":"test","reputation":10,"impact":10,"controversy":5,"description":"(1879–1955) Born in Germany, developed Theory of Relativity in 1915 whilst working at a patent office in Bern. Awarded Nobel Prize in 1921. ","special":"Special/General Relativity"},{"name":"Alexander Fleming ","discipline":"B","discipline2":"test","img src":"test","reputation":8,"impact":10,"controversy":2,"description":"(1881–1955) Scottish biologist who discovered penecillin by accident when his Staphlococci cultures were contaminated by fungus. Won the 1945 Nobel Prize for Physiology or Medicine.","special":null},{"name":"Andreas Vesalius","discipline":"B","discipline2":"test","img src":"test","reputation":6,"impact":7,"controversy":3,"description":"(1514 –1564) Did public dissections on recently hanged criminals and published his book On the Fabric of the Human Body. Before this, human anatomy had been estimated through animal dissection.","special":null},{"name":"Antoine Lavoisier","discipline":"C","discipline2":"B","img src":"test","reputation":8,"impact":7,"controversy":8,"description":"(1743 –1794) Studied chemistry, botany, maths and astronomy. Identified and named oxygen and hydrogen. Showed oxygen’s role in animal and plant respiration. Guillotined during the French Revolution, but later exonerated.","special":null}]');
+          var rand = playerCard2[Math.floor(Math.random() * playerCard2.length)];
+
+
+        this.set({
+         playerCard: true,
+         name: rand.name,
+         discipline: rand.discipline,
+         discipline2: rand.discipline2, 
+         description: rand.description,
+         reputation: rand.reputation,
+         impact: rand.impact,
+         controversy: rand.controversy 
+         });
+}
+});
+
+ractive.on({
+    changeAICard: function (event){
+      var playerCard3 = JSON.parse('[{"name":"Albert Einstein","discipline":"P","discipline2":"test","img src":"test","reputation":10,"impact":10,"controversy":5,"description":"(1879–1955) Born in Germany, developed Theory of Relativity in 1915 whilst working at a patent office in Bern. Awarded Nobel Prize in 1921. ","special":"Special/General Relativity"},{"name":"Alexander Fleming ","discipline":"B","discipline2":"test","img src":"test","reputation":8,"impact":10,"controversy":2,"description":"(1881–1955) Scottish biologist who discovered penecillin by accident when his Staphlococci cultures were contaminated by fungus. Won the 1945 Nobel Prize for Physiology or Medicine.","special":null},{"name":"Andreas Vesalius","discipline":"B","discipline2":"test","img src":"test","reputation":6,"impact":7,"controversy":3,"description":"(1514 –1564) Did public dissections on recently hanged criminals and published his book On the Fabric of the Human Body. Before this, human anatomy had been estimated through animal dissection.","special":null},{"name":"Antoine Lavoisier","discipline":"C","discipline2":"B","img src":"test","reputation":8,"impact":7,"controversy":8,"description":"(1743 –1794) Studied chemistry, botany, maths and astronomy. Identified and named oxygen and hydrogen. Showed oxygen’s role in animal and plant respiration. Guillotined during the French Revolution, but later exonerated.","special":null}]');
+          var rand2 = playerCard3[Math.floor(Math.random() * playerCard3.length)];
+          rand = playerCard3[3];
+          var stat = document.getElementById('btn').value;
+          var humanCard = eval('rand' +"."+ stat);
+          var compCard = eval('rand2' +"."+ stat);
+         
+            if (humanCard >= compCard){
+             var outcome = 'You win!';
+            }else{
+              outcome = 'You lose';
+          }
+ 
+
+
+        this.set({
+         compCard: true,
+         nameC: rand2.name,
+         disciplineC: rand2.discipline,
+         discipline2C: rand2.discipline2, 
+         descriptionC: rand2.description,
+         reputationC: rand2.reputation,
+         impactC: rand2.impact,
+         controversyC: rand2.controversy,
+         message: outcome
+         });
+}
+});
+</script>
+
 		<!--<button  onclick= 'changeImageAI()'>Click to generate computer's card</button>-->
 <div id = "sidebar">
 	<div id="image_containerAI" ></div><br/>
@@ -139,16 +195,7 @@
 <!-- JS -->
 	
 
-<script>
 
-		var ractive = new Ractive({
-			el: 'text-desc-container',
-			template: '#myTemplate2',
-			data: { name: playerCard2[2].name }
-		});
-
-		
-	</script>
 
 
 
@@ -176,6 +223,6 @@ The game is designed to educate and inspire players to discover more about the w
 	<div class="footer">
 		<p>A game by Science: Gamed LLP registered no. OC371281. Website content and design copyright &copy; 2012</p>
 	</div>
-	 <script src='Ractive.js'></script>
+
 </body>
 </html>
