@@ -1,45 +1,9 @@
 @import "base";
 
-.card-border {
-	   width: 240px;
-	   height: 336px;
-    margin: 0 auto;
-    background-color: red;
-    border: 5px solid #000;
-    position: relative;
-  
-}
-
-.inner-card-border,.name-container {
-	width: 220px;
-	   height: 317px;
-    margin: 0 auto;
-
-    background-color: white;
-    clear: both;
-    position: relative;
-    border: 3px solid #000;
-    top: 50%;
-    margin-top: -77px;
-    
-}
-.name-container {
-	border: 1px solid #000;
-	height: 30px;
-	position: absolute;	
-	top: 24%;
-	right: 0.1px;
-	width: 219px;
-	text-align: left;
-	line-height: 0.2em;
 
 
-}
-.hr {
-	width: 219px;
-	border: 1px solid #000;
-	bottom: 100%;
-}
+
+
 
 .floater {
 	position:relative; 
@@ -47,18 +11,9 @@
 	height:50%;	margin-bottom:-300px;
 	width:240px;
 }
-#text-name-container {
-	height: 5px;
-	text-align: left;
-}
 
-.pic-container{
-	height: 100px;
-}
 
-#text-desc-container {
-	height: 207px;
-}
+
 
 #wrap {
 width:700px;
@@ -72,6 +27,7 @@ float: left;
 
 width:325px;
 border-spacing: 0em;
+margin: 1em;
 
 
 }
@@ -108,4 +64,64 @@ button {
     cursor: pointer;
     -moz-border-radius: 0.3em;
     -webkit-border-radius: 0.3em;
+}
+
+.card {
+	outline: 0.5em solid #000;
+	border: 1em solid rgb(237,28,36);
+	width: 240px;
+	height: 336px;
+	position: relative;
+	background-color: rgb(237,28,36);
+	
+}
+
+.cardFace {
+	border: 0.2em solid #000;
+	background-color: white;
+	width: 235px;
+	height: 330px;
+	position: relative;
+}
+.nameField {
+	width: 235px;
+	height: 25px;
+	border-bottom: 0.2em solid #000;
+	text-align: center;
+	
+}
+
+.descriptionField {
+	width: 235px;
+	height: 100px;
+	bottom:0;
+	position: absolute;
+	text-align: center;
+	vertical-align: center;
+	border-top: 0.2em solid #000;
+
+}
+
+.picContainer {
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	right: 55px;
+	top: 35px;
+}
+.ulStats {
+	list-style-type: none;
+	position: absolute;
+	border-top: 0.2em solid #000;
+	width: 235px;
+	height: 50px;
+	bottom: 100px;
+	text-align: center;
+	margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 0.8em;
+    font-weight: bold;
+
 }

@@ -9,24 +9,28 @@
 <link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
 <script type="text/javascript" src="jQuery-1.10.2.js"></script>
-
+<script type="text/javascript" src="CSVParser.js"></script>
+<script type="text/javascript" src="shuffle.js"></script>
 </head>
 
 <body>
-		<div class = 'header'>
-		
-		<div class='nav non-index-nav'>
-			<a href='/'><div class='logo'></div></a>
-			<ul>
-				<li><a href='/'>home</a></li>
-				<li><a href='/about.html'>about us</a></li>
-				<li><a href='/blog/'>our blog</a></li>
-				<li><a href='/science/'>science stuff</a></li>
-				<li><a href='/games.html'>A fun card game</a></li>
-			</ul>
-		</div>
+<script>
+  $.get( 'https://docs.google.com/spreadsheet/pub?key=0AscIRJMcugw8dEp2cXBvMGcwd29hUTR2alBkMnp6bEE&output=csv').then( function ( data ) { // `data` is the contents of data.csv
+  var parser = new CSVParser( data );
+  
+  var scientistCards = parser.json();
+  window.$vars = {
+    scientistCards: scientistCards
+  };
 
-	</div>
+  shuffle(scientistCards);
+
+ 
+  
+});
+</script>
+
+
 
 
 <div id='container'></div>
@@ -36,51 +40,55 @@
 </br>
 <h1>To play:</h1>    
  <ul>
+{{^playerCard}}
 <li>1. Generate your scientist card here: <button on-click='pickName'>pick a name</button></li>
+{{/playerCard}}
 {{#playerCard}}
 <li>2. you have your card! Now pick a stat to compete on... This will generate your opponents card!</li>
 </br>
-<button id='reputation' value='reputation'>Reputation</button>
-</br>
-<button id='controversy' value='controversy'>Controversy</button>
-</br>
-<button id='impact'value='impact'>Impact</button>
 
 
-{{/playerCard}}
+<button on-click='competeReputation'>Reputation</button>
+</br>
+<button on-click='competeImpact'>Impact</button>
+</br>
+<button on-click='competeControversy'>Controversy</button>
+</br>
 
 </ul>
 </div>
-
+{{/playerCard}}
 {{#playerCard}}
-<div id='template'>
+
 <div id='main'> 
-<div class='card-border'>
-          <div class='floater'>
-          <div class='inner-card-border'>
+  <div class='card'>
+      <div class='cardFace'>
+          <p class='nameField'>{{name}} &#40;{{discipline}}&#41; {{discipline2}}</p>
+            <ul class='ulStats'>
+            <li>Reputation: {{reputation}}</li>
+            <li>Impact: {{impact}}<li>
+            <li>Controversy: {{controversy}}<li>
+            </ul>
+          <p class='descriptionField'>{{description}}</p>
+          <img class='picContainer' src='WilliamHerschel.jpg'></img>
           
-          <p id='text-name-container'>{{name}} {{discipline}} {{discipline2}}</p>
-          
-              <hr class='hr'>
-            <div class='pic-container'>
-            </div>
-            <hr class='hr'>
-            <p>Reputation: {{reputation}}</p>
-            <p>Impact: {{impact}}</p>
-            <p>Controversy: {{controversy}}</p>
-            <p id='text-desc-container'>{{description}}</p>
-        </div>
-        </div>
+      </div>
+  </div>
+</div>
    
-    </div>
+
   
 {{/playerCard}}
 
 {{^playerCard}}
-  <img src='DimitriMendeleev.jpg'></img>
+  <div id='sidebar'>
+    <div class='card'>
+      <div class='cardFace'>
+      </div>
+    </div>
+  </div>
 {{/playerCard}}
- </div> 
-</div>
+
 
 
 
@@ -88,111 +96,43 @@
 {{#compCard}}
 <div id='sidebar'>	
  <p>{{message}}</p>
-<div class='card-border'>
-          <div class='floater'>
-          <div class='inner-card-border'>
+  <div class='card'>
+      <div class='cardFace'>
+          <p class='nameField'>{{nameC}} &#40;{{disciplineC}}&#41; {{discipline2}}</p>
+            <ul class='ulStats'>
+            <li>Reputation: {{reputationC}}</li>
+            <li>Impact: {{impactC}}<li>
+            <li>Controversy: {{controversyC}}<li>
+            </ul>
+          <p class='descriptionField'>{{descriptionC}}</p>
+          <img class='picContainer' src='WilliamHerschel.jpg'></img>
           
-          <p id='text-name-container'>{{nameC}} {{disciplineC}} {{discipline2C}}</p>
-          
-              <hr class='hr'>
-            <div class='pic-container'>
-            </div>
-            <hr class='hr'>
-            <p>Reputation: {{reputationC}}</p>
-            <p>Impact: {{impactC}}</p>
-            <p>Controversy: {{controversyC}}</p>
-            <p id='text-desc-container'>{{descriptionC}}</p>
-        </div>
-        </div>
-   
-    </div>
+      </div>
+  </div>
+  </div>
   
 {{/compCard}}
 {{^compCard}}
-  <img src='DimitriMendeleev.jpg'></img>
-
+  <div id='sidebar'>
+    <div class='card'>
+      <div class='cardFace'>
+      </div>
+    </div>
+  </div>
 {{/compCard}}
+
+{{#reset}}
+<button on-click='playAgain'>Play Again!</button>
+{{/reset}}
 
 </script>
 
 
 
 <script src='Ractive.js'></script>  
-<script>
-
-var rand
-
-ractive = new Ractive({
-    el: 'container',
-    template: '#tpl',
-    data: {
-      playerCard: false,
-      compCard: false
-    }
-    
-});
-
-ractive.on({
-    pickName: function (event){
-      var playerCard2 = JSON.parse('[{"name":"Albert Einstein","discipline":"P","discipline2":"test","img src":"test","reputation":10,"impact":10,"controversy":5,"description":"(1879–1955) Born in Germany, developed Theory of Relativity in 1915 whilst working at a patent office in Bern. Awarded Nobel Prize in 1921. ","special":"Special/General Relativity"},{"name":"Alexander Fleming ","discipline":"B","discipline2":"test","img src":"test","reputation":8,"impact":10,"controversy":2,"description":"(1881–1955) Scottish biologist who discovered penecillin by accident when his Staphlococci cultures were contaminated by fungus. Won the 1945 Nobel Prize for Physiology or Medicine.","special":null},{"name":"Andreas Vesalius","discipline":"B","discipline2":"test","img src":"test","reputation":6,"impact":7,"controversy":3,"description":"(1514 –1564) Did public dissections on recently hanged criminals and published his book On the Fabric of the Human Body. Before this, human anatomy had been estimated through animal dissection.","special":null},{"name":"Antoine Lavoisier","discipline":"C","discipline2":"B","img src":"test","reputation":8,"impact":7,"controversy":8,"description":"(1743 –1794) Studied chemistry, botany, maths and astronomy. Identified and named oxygen and hydrogen. Showed oxygen’s role in animal and plant respiration. Guillotined during the French Revolution, but later exonerated.","special":null}]');
-          var rand = playerCard2[Math.floor(Math.random() * playerCard2.length)];
+<script src='ractiveForGame.js'></script>
 
 
-        this.set({
-         playerCard: true,
-         name: rand.name,
-         discipline: rand.discipline,
-         discipline2: rand.discipline2, 
-         description: rand.description,
-         reputation: rand.reputation,
-         impact: rand.impact,
-         controversy: rand.controversy 
-         });
-}
-});
-
-ractive.on({
-    changeAICard: function (event){
-      var playerCard3 = JSON.parse('[{"name":"Albert Einstein","discipline":"P","discipline2":"test","img src":"test","reputation":10,"impact":10,"controversy":5,"description":"(1879–1955) Born in Germany, developed Theory of Relativity in 1915 whilst working at a patent office in Bern. Awarded Nobel Prize in 1921. ","special":"Special/General Relativity"},{"name":"Alexander Fleming ","discipline":"B","discipline2":"test","img src":"test","reputation":8,"impact":10,"controversy":2,"description":"(1881–1955) Scottish biologist who discovered penecillin by accident when his Staphlococci cultures were contaminated by fungus. Won the 1945 Nobel Prize for Physiology or Medicine.","special":null},{"name":"Andreas Vesalius","discipline":"B","discipline2":"test","img src":"test","reputation":6,"impact":7,"controversy":3,"description":"(1514 –1564) Did public dissections on recently hanged criminals and published his book On the Fabric of the Human Body. Before this, human anatomy had been estimated through animal dissection.","special":null},{"name":"Antoine Lavoisier","discipline":"C","discipline2":"B","img src":"test","reputation":8,"impact":7,"controversy":8,"description":"(1743 –1794) Studied chemistry, botany, maths and astronomy. Identified and named oxygen and hydrogen. Showed oxygen’s role in animal and plant respiration. Guillotined during the French Revolution, but later exonerated.","special":null}]');
-          var rand2 = playerCard3[Math.floor(Math.random() * playerCard3.length)];
-          rand = playerCard3[3];
-          var stat = document.getElementById('btn').value;
-          var humanCard = eval('rand' +"."+ stat);
-          var compCard = eval('rand2' +"."+ stat);
-         
-            if (humanCard >= compCard){
-             var outcome = 'You win!';
-            }else{
-              outcome = 'You lose';
-          }
- 
-
-
-        this.set({
-         compCard: true,
-         nameC: rand2.name,
-         disciplineC: rand2.discipline,
-         discipline2C: rand2.discipline2, 
-         descriptionC: rand2.description,
-         reputationC: rand2.reputation,
-         impactC: rand2.impact,
-         controversyC: rand2.controversy,
-         message: outcome
-         });
-}
-});
-</script>
-
-		<!--<button  onclick= 'changeImageAI()'>Click to generate computer's card</button>-->
-<div id = "sidebar">
-	<div id="image_containerAI" ></div><br/>
-
-	
-
-</div>
-
-
-<!-- JS -->
 	
 
 
@@ -200,29 +140,9 @@ ractive.on({
 
 
 
-<div id="result" ></div>
-</div>
-<div class = 'about'>
-	<div class='row'>
-	<div id = 'artplogo'>
-		<img src = "//localhost/Users/richardchatwin/MP-website-test/SARTPlogo.jpg">
-	</div>	
-	<div class = 'rules'>
-		<h3> About the game</h3>
-		<p>Science: A Race To Publish (ARtP) is a fun and educational card game that helps players grasp the inner workings of science, as well as introducing famous scientists, theories and possible scientific career paths to players.
 
-The aim of the game is to build a lab team to conduct research. How players do this is up to them. Will they collaborate with other players for mutual gain? Or will they be ruthless in trying to win, running the risk of reprisal from other players?
 
-In the game players use their own teams of famous scientists and theories, and have to manage their cash flow successfully in order to win the game. 
 
-The game is designed to educate and inspire players to discover more about the world of science, beyond what they read in textbooks or newspapers.
-</p>
-	</div>	
-	</div>	
-</div>
-	<div class="footer">
-		<p>A game by Science: Gamed LLP registered no. OC371281. Website content and design copyright &copy; 2012</p>
-	</div>
 
 </body>
 </html>
