@@ -36,31 +36,46 @@
 <div id='container'></div>
 
 <script id='tpl' type='text/ractive'>
-<div id="rules">
-</br>
-<h1>To play:</h1>    
- <ul>
-{{^playerCard}}
-<li>1. Generate your scientist card here: <button on-click='pickName'>pick a name</button></li>
-{{/playerCard}}
-{{#playerCard}}
-<li>2. you have your card! Now pick a stat to compete on... This will generate your opponents card!</li>
-</br>
+
+<div id='rules'>
+  <h1>To play:</h1>    
+  <ul>
+    {{^playerCard}}
+    <li>Generate your scientist card here: <button on-click='pickName'>pick a name</button></li>
+    {{/playerCard}}
+    {{#statChoice}}
+    <li>You have your card! Now pick a stat to compete on... This will generate your opponents card!</li>
+    </br>
 
 
-<button on-click='competeReputation'>Reputation</button>
-</br>
-<button on-click='competeImpact'>Impact</button>
-</br>
-<button on-click='competeControversy'>Controversy</button>
-</br>
+    <button on-click='competeReputation'>Reputation</button>
+    </br>
+    <button on-click='competeImpact'>Impact</button>
+    </br>
+    <button on-click='competeControversy'>Controversy</button>
+    </br>
 
-</ul>
+  </ul>
+
+
+{{/statChoice}}
+{{#reset}}
+<p>{{message}}</p>
+<button on-click='playAgain'>Play Again!</button>
+{{/reset}}
+
+{{^reset}}
+{{/reset}}
 </div>
-{{/playerCard}}
+
+{{^statChoice}}
+{{/statChoice}}
+
+<div id='wrap'>
 {{#playerCard}}
 
 <div id='main'> 
+<h2>Your Card</h2>
   <div class='card'>
       <div class='cardFace'>
           <p class='nameField'>{{name}} &#40;{{discipline}}&#41; {{discipline2}}</p>
@@ -70,23 +85,26 @@
             <li>Controversy: {{controversy}}<li>
             </ul>
           <p class='descriptionField'>{{description}}</p>
-          <img class='picContainer' src='WilliamHerschel.jpg'></img>
+          <img class='picContainer' src={{image}}></img>
           
       </div>
   </div>
 </div>
+
    
 
   
 {{/playerCard}}
 
 {{^playerCard}}
-  <div id='sidebar'>
+<div id='main'>
+<h2>Your Card</h2>
     <div class='card'>
       <div class='cardFace'>
       </div>
     </div>
-  </div>
+ 
+</div>
 {{/playerCard}}
 
 
@@ -94,8 +112,9 @@
 
 
 {{#compCard}}
+
 <div id='sidebar'>	
- <p>{{message}}</p>
+<h2>Opponent Card</h2>
   <div class='card'>
       <div class='cardFace'>
           <p class='nameField'>{{nameC}} &#40;{{disciplineC}}&#41; {{discipline2}}</p>
@@ -109,11 +128,13 @@
           
       </div>
   </div>
-  </div>
+</div>
+
   
 {{/compCard}}
 {{^compCard}}
   <div id='sidebar'>
+  <h2>Opponent Card</h2>
     <div class='card'>
       <div class='cardFace'>
       </div>
@@ -121,10 +142,10 @@
   </div>
 {{/compCard}}
 
-{{#reset}}
-<button on-click='playAgain'>Play Again!</button>
-{{/reset}}
 
+
+
+</div>
 </script>
 
 

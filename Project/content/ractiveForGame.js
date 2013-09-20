@@ -10,6 +10,7 @@ ractive = new Ractive({
     data: {
       playerCard: false,
       compCard: false,
+      statChoice: false,
       reset: false
     }
 });
@@ -30,6 +31,7 @@ ractive.on({
 
         this.set({
          playerCard: true,
+         statChoice: true,
          name: yourCard.name,
          discipline: yourCard.discipline1,
          /*discipline2: rand.discipline2,*/ 
@@ -37,7 +39,7 @@ ractive.on({
          reputation: yourCard.reputation,
          impact: yourCard.impact,
          controversy: yourCard.controversy,
-         /*image: yourCard.image*/ 
+         image: yourCard.image 
          });
 }
 });
@@ -58,6 +60,7 @@ ractive.on({
 
         this.set({
          compCard: true,
+         statChoice: false,
          reset: true,
          nameC: opponentCard.name,
          disciplineC: opponentCard.discipline1,
@@ -86,7 +89,8 @@ ractive.on({
 
 
         this.set({
-         compCard: true,
+          compCard: true,
+         statChoice: false,
          reset: true,
          nameC: opponentCard.name,
          disciplineC: opponentCard.discipline1,
@@ -107,7 +111,7 @@ ractive.on({
             if (yourCard.controversy > opponentCard.controversy) {
              var outcome = 'You win!';
             }else if (yourCard.controversy < opponentCard.controversy) {
-              outcome = 'You lose';
+              outcome = 'You lose :(';
           } else {
               outcome = 'Draw!';
           }
@@ -115,7 +119,8 @@ ractive.on({
 
 
         this.set({
-         compCard: true,
+          compCard: true,
+         statChoice: false,
          reset: true,
          nameC: opponentCard.name,
          disciplineC: opponentCard.discipline1,
@@ -147,6 +152,7 @@ $('html,body').scrollTop(0);
         this.set({
          compCard: false,
          playerCard: false,
+         statChoice: false,
          reset: false
          });
 }
