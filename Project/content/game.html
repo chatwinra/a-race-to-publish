@@ -14,6 +14,7 @@
 </head>
 
 <body>
+
 <script>
   $.get( 'https://docs.google.com/spreadsheet/pub?key=0AscIRJMcugw8dEp2cXBvMGcwd29hUTR2alBkMnp6bEE&output=csv').then( function ( data ) { // `data` is the contents of data.csv
   var parser = new CSVParser( data );
@@ -36,6 +37,7 @@
 <div id='container'></div>
 
 <script id='tpl' type='text/ractive'>
+<!--the rules and first button option which fetches a card for the player-->
 
 <div id='rules'>
   <h1>To play:</h1>    
@@ -43,6 +45,9 @@
     {{^playerCard}}
     <li>Generate your scientist card here: <button on-click='pickName'>pick a name</button></li>
     {{/playerCard}}
+
+<!--the next button option offers the player the choice of which stat to use. This does 2 things: fetches the opponents card and then compares the 2 cards using the stat the player picked-->
+
     {{#statChoice}}
     <li>You have your card! Now pick a stat to compete on... This will generate your opponents card!</li>
     </br>
@@ -56,9 +61,10 @@
     </br>
 
   </ul>
-
-
 {{/statChoice}}
+
+<!--this controls the 'play again' button so it only appears at the end-->
+
 {{#reset}}
 <p>{{message}}</p>
 <button on-click='playAgain'>Play Again!</button>
@@ -68,12 +74,32 @@
 {{/reset}}
 </div>
 
+<!--this is an empty template so that when the player has selected a stat, this appears instead of the 3 button option above remaining-->
+
 {{^statChoice}}
 {{/statChoice}}
 
-<div id='wrap'>
-{{#playerCard}}
+<!--the main card container, 'wrap' contains the cards which float left and right-->
 
+
+<div id='wrap'>
+<!--start off with just the back showing as no card is selected-->
+{{^playerCard}}
+<div id='main'>
+<h2>Your Card</h2>
+    <div class='card'>
+      <div class='cardFace'>
+      </div>
+    </div>
+ 
+</div>
+{{/playerCard}}
+
+
+
+
+<!--appears when the player selects a card-->
+{{#playerCard}}
 <div id='main'> 
 <h2>Your Card</h2>
   <div class='card'>
@@ -90,26 +116,23 @@
       </div>
   </div>
 </div>
-
-   
-
   
 {{/playerCard}}
 
-{{^playerCard}}
-<div id='main'>
-<h2>Your Card</h2>
+
+<!--as above, opponents card starts back facing until fetched-->
+
+{{^compCard}}
+  <div id='sidebar'>
+  <h2>Opponent Card</h2>
     <div class='card'>
       <div class='cardFace'>
       </div>
     </div>
- 
-</div>
-{{/playerCard}}
+  </div>
+{{/compCard}}
 
-
-
-
+<!--when the card is selected, it shows-->
 
 {{#compCard}}
 
@@ -132,15 +155,7 @@
 
   
 {{/compCard}}
-{{^compCard}}
-  <div id='sidebar'>
-  <h2>Opponent Card</h2>
-    <div class='card'>
-      <div class='cardFace'>
-      </div>
-    </div>
-  </div>
-{{/compCard}}
+
 
 
 
