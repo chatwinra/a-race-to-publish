@@ -33,26 +33,24 @@
 
 
 
-
 <div id='container'></div>
 
 <script id='tpl' type='text/ractive'>
 <!--the rules and first button option which fetches a card for the player-->
 
 <div id='rules'>
-  <h1>To play:</h1>    
-  <ul>
+  
+  
     {{^playerCard}}
-    <li>Generate your scientist card here: <button on-click='pickName'>pick a name</button></li>
+    <h1>To play:</h1>  
+    <h3>Generate your scientist card here: <button on-click='pickName'>pick a name</button></h3>
     {{/playerCard}}
 
 <!--the next button option offers the player the choice of which stat to use. This does 2 things: fetches the opponents card and then compares the 2 cards using the stat the player picked-->
 
     {{#statChoice}}
-    <li>You have your card! Now pick a stat to compete on... This will generate your opponents card!</li>
-    </br>
-
-
+   
+    <h3 >You have your card - Pick a stat to compete on and generate your opponent&#39;s card!</h3>
     <button on-click='competeReputation'>Reputation</button>
     </br>
     <button on-click='competeImpact'>Impact</button>
@@ -60,13 +58,14 @@
     <button on-click='competeControversy'>Controversy</button>
     </br>
 
-  </ul>
+  
 {{/statChoice}}
 
 <!--this controls the 'play again' button so it only appears at the end-->
 
 {{#reset}}
-<p>{{message}}</p>
+<h1>{{message}}</h1>
+<h2>Play Again!</h2>  
 <button on-click='playAgain'>Play Again!</button>
 {{/reset}}
 
@@ -106,12 +105,12 @@
       <div class='cardFace'>
           <p class='nameField'>{{name}} &#40;{{discipline}}&#41; {{discipline2}}</p>
             <ul class='ulStats'>
-            <li>Reputation: {{reputation}}</li>
-            <li>Impact: {{impact}}<li>
-            <li>Controversy: {{controversy}}<li>
+            <li>Reputation: <b>{{reputation}}</b> </li>
+            <li>Impact: <b>{{impact}}</b> <li>
+            <li>Controversy: <b>{{controversy}}</b> <li>
             </ul>
           <p class='descriptionField'>{{description}}</p>
-          <img class='picContainer' src={{image}}></img>
+          <img class='picContainer' src={{image}}>
           
       </div>
   </div>
@@ -142,12 +141,12 @@
       <div class='cardFace'>
           <p class='nameField'>{{nameC}} &#40;{{disciplineC}}&#41; {{discipline2}}</p>
             <ul class='ulStats'>
-            <li>Reputation: {{reputationC}}</li>
-            <li>Impact: {{impactC}}<li>
-            <li>Controversy: {{controversyC}}<li>
+            <li>Reputation: <b>{{reputationC}}</b> </li>
+            <li>Impact: <b>{{impactC}}</b> <li>
+            <li>Controversy: <b>{{controversyC}}</b> <li>
             </ul>
           <p class='descriptionField'>{{descriptionC}}</p>
-          <img class='picContainer' src='WilliamHerschel.jpg'></img>
+          <img class='picContainer' src='WilliamHerschel.jpg'>
           
       </div>
   </div>
@@ -178,7 +177,10 @@
 
 
 
-
+<div id='footer'>
+<img id='artplogo' src='../images/logo.jpg'>
+<p id='about'> This is an extract from a new card game called 'Science:A Race To Publish'.The game aims to give players a flavour of running their own lab, as well as dealing with common issues in science, from interacting with the public to winning the Nobel Prize!</p>
+</div>
 
 </body>
 </html>
