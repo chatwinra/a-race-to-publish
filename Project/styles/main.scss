@@ -126,14 +126,19 @@ button {
 }
 
 #about {
-	width: 20%;
-	float: right;
-	margin-right: 10em;
+	line-height:1.5;
+	padding-left: 10em;
+}
+#findoutmore {
+	list-style-type: none;
+}
+#findoutmore li {
+	display: inline;
 }
 
 #artplogo {
 	float: left;
 	width: 200px;
-	
+	height: 200px;
 
 }
