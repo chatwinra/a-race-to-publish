@@ -1,6 +1,21 @@
 @import "base";
 
 
+#nav{
+
+		position: static;
+		left: 0.5em;
+		top: 0.5em;
+		width: 15em;
+		height: 2em;
+		padding: 0;
+		background: url(assets/logo-small.svg) 0 50% no-repeat;
+		background-size: 15em 2em;
+		border: 1px solid #777777;
+		background-color: #fefefe;
+
+
+}
 #rules {
 	text-align: center;
 	width: 100%;
@@ -127,10 +142,15 @@ button {
 
 #about {
 	line-height:1.5;
-	padding-left: 10em;
+	padding-left: 25em;
+	padding-top: 2em;
+	width: 50%;
 }
 #findoutmore {
 	list-style-type: none;
+	width: 50%;
+	text-align: center;
+	padding-left: 20em;
 }
 #findoutmore li {
 	display: inline;
