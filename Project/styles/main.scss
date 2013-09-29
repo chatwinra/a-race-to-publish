@@ -55,7 +55,7 @@ text-align: center;
 
 button {
     border: 1px solid #777777;
-    background: #6e9e2d;
+    background: #386BF5;
     width: 20%;
     color: white;
     padding: 0.3em;
@@ -144,13 +144,14 @@ button {
 	line-height:1.5;
 	padding-left: 25em;
 	padding-top: 2em;
-	width: 50%;
+	width: 58%;
 }
 #findoutmore {
 	list-style-type: none;
-	width: 50%;
+	width: 65%;
 	text-align: center;
 	padding-left: 20em;
+	font-size: 0.8em;
 }
 #findoutmore li {
 	display: inline;
@@ -161,4 +162,18 @@ button {
 	width: 200px;
 	height: 200px;
 
+}
+#gamefeatures {
+	font-size: 0.8em;
+	width: 55%;
+	text-align: center;
+	padding-left: 20em;
+}
+
+#legal {
+	width: 65%;
+	color: #DBDBDB;
+	font-size: 0.8em;
+	padding-left:35em;
+	padding-top: 5em;
 }
