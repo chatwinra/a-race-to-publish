@@ -113,6 +113,14 @@ button {
 	right: 55px;
 	top: 35px;
 }
+
+.backpic {
+	width: 235px;
+	height: 300px;
+	padding-top:10px;
+
+
+}
 .ulStats {
 	list-style-type: none;
 	position: absolute;
@@ -146,6 +154,11 @@ button {
 	padding-top: 2em;
 	width: 58%;
 }
+#about2 {
+	line-height:1.5;
+	padding-left: 25em;
+	width: 58%;
+}
 #findoutmore {
 	list-style-type: none;
 	width: 65%;
@@ -175,5 +188,4 @@ button {
 	color: #DBDBDB;
 	font-size: 0.8em;
 	padding-left:35em;
-	padding-top: 5em;
 }

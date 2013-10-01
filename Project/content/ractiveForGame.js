@@ -51,7 +51,7 @@ ractive.on({
             if (yourCard.reputation > opponentCard.reputation) {
              var outcome = 'You win!';
             }else if (yourCard.reputation < opponentCard.reputation) {
-              outcome = 'You lose';
+              outcome = 'You lose :(';
           } else {
               outcome = 'Draw!';
           }
@@ -69,6 +69,7 @@ ractive.on({
          reputationC: opponentCard.reputation,
          impactC: opponentCard.impact,
          controversyC: opponentCard.controversy,
+         imageC: opponentCard.image, 
          message: outcome
          });
 }
@@ -81,7 +82,7 @@ ractive.on({
             if (yourCard.impact > opponentCard.impact) {
              var outcome = 'You win!';
             }else if (yourCard.impact < opponentCard.impact) {
-              outcome = 'You lose';
+              outcome = 'You lose :(';
           } else {
               outcome = 'Draw!';
           }
@@ -99,6 +100,7 @@ ractive.on({
          reputationC: opponentCard.reputation,
          impactC: opponentCard.impact,
          controversyC: opponentCard.controversy,
+         imageC: opponentCard.image,
          message: outcome
          });
 }
@@ -129,6 +131,7 @@ ractive.on({
          reputationC: opponentCard.reputation,
          impactC: opponentCard.impact,
          controversyC: opponentCard.controversy,
+         imageC: opponentCard.image,
          message: outcome
          });
 }
