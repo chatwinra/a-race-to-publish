@@ -34,9 +34,9 @@ module.exports = function(grunt) {
 					dest: ''
 				}]
 			},
-		
+
 		// Copy the files we need from the src folder to appfog/public
-		
+
 			generated: {
 				files: [{
 					expand: true,
@@ -45,16 +45,8 @@ module.exports = function(grunt) {
 					dest: 'generated'
 				}]
 			},
-			root: {
-				files: [{
-					expand: true,
-					cwd: 'project/styles',
-					src: ['**'],
-					dest: 'appfog/public'
-				}]
-			}
-		},
 
+},
 		concat: {
 			options: {
 				process: {
@@ -81,7 +73,7 @@ module.exports = function(grunt) {
 		qunit: {
 			main: 'test/index.html'
 		},
-	
+
 
 		// Main watch task. Kick this off by entering `grunt watch`. Now, any time you change the files below,
 		// the relevant tasks will execute
@@ -97,7 +89,7 @@ module.exports = function(grunt) {
 			options: {
 				style: 'compressed'
 				},	
-			
+
 			dev: {
 				files: {
 					'generated/min.css': 'project/styles/*.scss'
@@ -106,17 +98,13 @@ module.exports = function(grunt) {
 					debugInfo: true
 				}
 			},
-			dist: {
-				files: {
-					'appfog/public/min.css': 'project/styles/*.scss'
-				}
-			}
+
 		},
 
 });
-		
 
-						
+
+
 
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-sass');
@@ -129,13 +117,13 @@ module.exports = function(grunt) {
 
 		// Default task.
 	grunt.registerTask( 'default', [
-		
+
 		'sass',
 		'copy',
 		'concat', 
 		'uglify'
-	
-		
+
+
 	]);
 
 	// aliases
