@@ -48,6 +48,8 @@ button {
     cursor: pointer;
     -moz-border-radius: 0.3em;
     -webkit-border-radius: 0.3em;
+    display: block;
+    margin: 0 auto 0.5em auto;
 }
 
 @import "layout";
