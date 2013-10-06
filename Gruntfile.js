@@ -2,7 +2,7 @@
 module.exports = function(grunt) {
 
 	// Project configuration.
-			'use strict';
+	'use strict';
 
 	grunt.initConfig({
 
@@ -36,7 +36,6 @@ module.exports = function(grunt) {
 			},
 
 		// Copy the files we need from the src folder to appfog/public
-
 			generated: {
 				files: [{
 					expand: true,
@@ -45,8 +44,8 @@ module.exports = function(grunt) {
 					dest: 'generated'
 				}]
 			},
+		},
 
-},
 		concat: {
 			options: {
 				process: {
@@ -88,7 +87,7 @@ module.exports = function(grunt) {
 		sass: {
 			options: {
 				style: 'compressed'
-				},	
+			},	
 
 			dev: {
 				files: {
@@ -98,7 +97,6 @@ module.exports = function(grunt) {
 					debugInfo: true
 				}
 			},
-
 		},
 
 		fetch: {
@@ -108,7 +106,7 @@ module.exports = function(grunt) {
 			}
 		}
 
-});
+	});
 
 
 
