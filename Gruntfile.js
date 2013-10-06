@@ -12,23 +12,41 @@ module.exports = function(grunt) {
 		min: false,
 
 		copy: {
-			generated: {
+			src: {
 				files: [{
 					expand: true,
-					cwd: 'project/styles',
+					cwd: 'project/src',
 					src: ['**'],
-					dest: 'generated'
+					dest: 'build/'
 				}]
 			},
+			assets: {
+				files: [{
+					expand: true,
+					cwd: 'project/assets',
+					src: ['**'],
+					dest: 'build/assets/'
+				}]
+			}
 		},
 
 		// Main watch task. Kick this off by entering `grunt watch`. Now, any time you change the files below,
 		// the relevant tasks will execute
 		watch: {
+			options: {
+				interrupt: true
+			},
+			src: {
+				files: 'project/src/**/*',
+				tasks: 'copy:src'
+			},
+			assets: {
+				files: 'project/assets/**/*',
+				tasks: 'copy:assets'
+			},
 			sass: {
 				files: 'project/styles/*.scss',
-				tasks: 'sass',
-				interrupt: true
+				tasks: 'sass'
 			}
 		},
 			// Compile .scss files
@@ -36,7 +54,7 @@ module.exports = function(grunt) {
 			main: {
 				files: [{
 					src: 'Project/styles/main.scss',
-					dest: 'generated/min.css'
+					dest: 'build/min.css'
 				}],
 				options: {
 					debugInfo: '<%= prod ? false : true %>',
@@ -46,7 +64,7 @@ module.exports = function(grunt) {
 		},
 
 		clean: {
-			generated: 'generated/'
+			build: 'build/'
 		},
 
 		fetch: {
@@ -71,14 +89,17 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks( 'grunt-fetch' );
 
-	grunt.registerTask( 'build', [ 'default','copy:build', 'concat', 'uglify'] );
+	grunt.registerTask( 'build', [
+		'clean:build',
+		'copy:src',
+		'copy:assets',
+		'sass'
+	]);
 
 		// Default task.
 	grunt.registerTask( 'default', [
-		'sass',
-		'copy',
-		'concat', 
-		'uglify'
+		'build', 
+		'watch'
 	]);
 
 };
