@@ -34,7 +34,6 @@
 			<!--the next button option offers the player the choice of which stat to use. This does 2 things: fetches the opponents card and then compares the 2 cards using the stat the player picked-->
 
 			{{#statChoice}}
-		   
 				<h3 >You have your card - Pick a stat to compete on and generate your opponent&#39;s card!</h3>
 				<button on-click='competeReputation'>Reputation</button>
 				</br>
@@ -50,15 +49,7 @@
 				<h2>Play Again!</h2>  
 				<button on-click='playAgain'>Play Again!</button>
 			{{/reset}}
-
-			{{^reset}}
-			{{/reset}}
 		</div>
-
-		<!--this is an empty template so that when the player has selected a stat, this appears instead of the 3 button option above remaining-->
-
-		{{^statChoice}}
-		{{/statChoice}}
 
 		<!--the main card container, 'wrap' contains the cards which float left and right-->
 		<div id='wrap'>
