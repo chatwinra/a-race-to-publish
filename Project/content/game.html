@@ -121,16 +121,29 @@
 	</script>
 
 	<script>
-		$.get( 'https://docs.google.com/spreadsheet/pub?key=0AscIRJMcugw8dEp2cXBvMGcwd29hUTR2alBkMnp6bEE&output=csv').then( function ( data ) { // `data` is the contents of data.csv
-			var parser = new CSVParser( data );
+		(function () {
 
-			var scientistCards = parser.json();
-			window.$vars = {
-			scientistCards: scientistCards
-		};
+			var xhr;
 
-		shuffle(scientistCards);
-	});
+			xhr = new XMLHttpRequest();
+
+			xhr.open( 'get', 'data.csv' );
+			xhr.onload = function () {
+				var csv, parser, cards;
+
+				csv = xhr.responseText;
+				parser = new CSVParser( csv );
+
+				cards = parser.json()
+
+				window.$vars = { scientistCards: cards };
+
+				shuffle( cards );
+			};
+
+			xhr.send();
+
+		}());
 	</script>
 
 	<script src='Ractive.js'></script>  
