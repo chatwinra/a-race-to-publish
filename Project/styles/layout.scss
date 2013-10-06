@@ -1,24 +1,19 @@
 #wrap {
-width:60%;
-overflow: auto;
-margin:10px auto;
-
-
+	width: 60%;
+	overflow: auto;
+	margin: 10px auto;
 }
 
-#main {
-float: left;
-border-spacing: 0em;
-margin: 2em;
-text-align: center;
-
+.player {
+	float: left;
+	border-spacing: 0em;
+	margin: 2em;
+	text-align: center;
 }
 
-#sidebar {
-float: right;
-border-spacing: 0em;
-margin: 2em;
-text-align: center;
-
-
+.opponent {
+	float: right;
+	border-spacing: 0em;
+	margin: 2em;
+	text-align: center;
 }
