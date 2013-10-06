@@ -101,6 +101,13 @@ module.exports = function(grunt) {
 
 		},
 
+		fetch: {
+			csv: {
+				url: 'https://docs.google.com/spreadsheet/pub?key=0AscIRJMcugw8dEp2cXBvMGcwd29hUTR2alBkMnp6bEE&output=csv',
+				dest: 'Project/content/data.csv'
+			}
+		}
+
 });
 
 
@@ -112,6 +119,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( 'grunt-contrib-concat' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-qunit' );
+
+	grunt.loadNpmTasks( 'grunt-fetch' );
 
 	grunt.registerTask( 'build', [ 'default','copy:build', 'concat', 'uglify'] );
 
