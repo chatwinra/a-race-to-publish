@@ -1,0 +1,75 @@
+.card {
+	outline: 0.5em solid #000;
+	border: 1em solid #FF2400;
+	width: 240px;
+	height: 336px;
+	position: relative;
+	background-color: #FF2400;
+	
+	
+}
+
+.cardFace {
+	border: 0.2em solid #000;
+	background-color: #FEFCFF;
+	width: 235px;
+	height: 330px;
+	position: relative;
+}
+.nameField {
+	width: 235px;
+	height: 25px;
+	border-bottom: 0.1em solid #000;
+	text-align: center;
+	line-height:2em;
+	letter-spacing: 0.05em;
+	font-weight: bold;
+	font-size: 0.9em;
+	
+}
+
+.descriptionField {
+	width: 235px;
+	height: 100px;
+	bottom:0;
+	position: absolute;
+	text-align: center;
+	vertical-align: center;
+	overflow: auto;
+	margin-bottom:5px;
+	font-style: italic;
+}
+
+.picContainer {
+	width: 120px;
+	height: 120px;
+	position: absolute;
+	right: 55px;
+	top: 35px;
+}
+
+.ulStats {
+	list-style-type: none;
+	position: absolute;
+	border-top: 0.1em solid #000;
+	border-bottom: 0.1em solid #000;
+	width: 235px;
+	height: 50px;
+	bottom: 100px;
+	text-align: center;
+	margin-left: 0px;
+    margin-right: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 0.8em;
+   
+
+}
+
+.backpic {
+	width: 235px;
+	height: 300px;
+	padding-top:10px;
+
+
+}
