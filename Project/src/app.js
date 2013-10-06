@@ -2,7 +2,7 @@
 
 	'use strict';
 
-	var get, deck;
+	var get, shuffle, deck;
 
 	get = function ( url, callback ) {
 		var xhr = new XMLHttpRequest();
@@ -15,6 +15,22 @@
 		xhr.send();
 	};
 
+	var shuffle = function ( array ) {
+		var counter = array.length, temp, index;
+
+		// While there are elements in the array
+		while (counter--) {
+			// Pick a random index
+			index = (Math.random() * counter) | 0;
+
+			// And swap the last element with it
+			temp = array[counter];
+			array[counter] = array[index];
+			array[index] = temp;
+		}
+
+		return array;
+	};
 
 	// load CSV data
 	get( 'data.csv', function ( csv ) {
@@ -74,7 +90,7 @@
 					message: outcome
 				});
 			},
-			
+
 			playAgain: function (event){ 
 				shuffle(window.$vars.scientistCards);
 				document.body.scrollTop = 0;

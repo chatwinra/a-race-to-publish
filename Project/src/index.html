@@ -31,35 +31,8 @@
 
 
 	<script src="lib/CSVParser.js"></script>
-	<script src="lib/shuffle.js"></script>
+	<script src='lib/Ractive.js'></script> 
 
-	<script>
-		(function () {
-
-			var xhr;
-
-			xhr = new XMLHttpRequest();
-
-			xhr.open( 'get', 'data.csv' );
-			xhr.onload = function () {
-				var csv, parser, cards;
-
-				csv = xhr.responseText;
-				parser = new CSVParser( csv );
-
-				cards = parser.json()
-
-				window.$vars = { scientistCards: cards };
-
-				shuffle( cards );
-			};
-
-			xhr.send();
-
-		}());
-	</script>
-
-	<script src='lib/Ractive.js'></script>  
 	<script src='app.js'></script>
 
 </body>
