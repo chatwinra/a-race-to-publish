@@ -2,40 +2,13 @@
 
 	'use strict';
 
-	var get, shuffle, deck;
-
-	get = function ( url, callback ) {
-		var xhr = new XMLHttpRequest();
-
-		xhr.open( 'get', url );
-		xhr.onload = function () {
-			callback( xhr.responseText )
-		};
-
-		xhr.send();
-	};
-
-	var shuffle = function ( array ) {
-		var counter = array.length, temp, index;
-
-		// While there are elements in the array
-		while (counter--) {
-			// Pick a random index
-			index = (Math.random() * counter) | 0;
-
-			// And swap the last element with it
-			temp = array[counter];
-			array[counter] = array[index];
-			array[index] = temp;
-		}
-
-		return array;
-	};
+	var game = {};
+	
 
 	// load CSV data
 	get( 'data.csv', function ( csv ) {
 		var parser = new CSVParser( csv );
-		deck = parser.json();
+		game.deck = parser.json();
 
 		// TODO don't enable user to start game until we've got the data
 	});
@@ -55,7 +28,7 @@
 
 		ractive.on({
 			pickName: function (event) {
-				var cardDeck = shuffle( deck.slice() ); // clone...
+				var cardDeck = shuffle( game.deck.slice() ); // clone...
 				var yourCard = cardDeck.pop();
 				var opponentCard = cardDeck.pop();
 				window.$var = {
@@ -104,5 +77,36 @@
 			}
 		});
 	});
+
+
+
+	// helper functions
+	function  get ( url, callback ) {
+		var xhr = new XMLHttpRequest();
+
+		xhr.open( 'get', url );
+		xhr.onload = function () {
+			callback( xhr.responseText )
+		};
+
+		xhr.send();
+	};
+
+	function shuffle ( array ) {
+		var counter = array.length, temp, index;
+
+		// While there are elements in the array
+		while (counter--) {
+			// Pick a random index
+			index = (Math.random() * counter) | 0;
+
+			// And swap the last element with it
+			temp = array[counter];
+			array[counter] = array[index];
+			array[index] = temp;
+		}
+
+		return array;
+	};
 
 }());
