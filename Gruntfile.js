@@ -8,6 +8,9 @@ module.exports = function(grunt) {
 
 		pkg: grunt.file.readJSON( 'package.json' ),
 
+		prod: false,
+		min: false,
+
 		copy: {
 			build: {
 				src: 'src/CSVParser.js',
@@ -85,18 +88,20 @@ module.exports = function(grunt) {
 		},
 			// Compile .scss files
 		sass: {
-			options: {
-				style: 'compressed'
-			},	
-
-			dev: {
-				files: {
-					'generated/min.css': 'project/styles/*.scss'
-				},
+			main: {
+				files: [{
+					src: 'Project/styles/main.scss',
+					dest: 'generated/min.css'
+				}],
 				options: {
-					debugInfo: true
+					debugInfo: '<%= prod ? false : true %>',
+					style: ( '<%= min ? "compressed" : "expanded" %>' )
 				}
-			},
+			}
+		},
+
+		clean: {
+			generated: 'generated/'
 		},
 
 		fetch: {
@@ -117,6 +122,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks( 'grunt-contrib-concat' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-qunit' );
+	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 
 	grunt.loadNpmTasks( 'grunt-fetch' );
 
