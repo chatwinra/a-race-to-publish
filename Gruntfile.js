@@ -12,33 +12,6 @@ module.exports = function(grunt) {
 		min: false,
 
 		copy: {
-			build: {
-				src: 'src/CSVParser.js',
-				dest: 'build/CSVParser.js',
-				options: {
-					processContent: function ( content ) {
-						return content.replace( '<%= version %>', grunt.template.process( '<%= pkg.version %>' ) );
-					}
-				}
-			},
-			release: {
-				files: [{
-					cwd: 'build/',
-					src: [ '**' ],
-					expand: true,
-					dest: 'release/<%= pkg.version %>/'
-				}]
-			},
-			shortcut: {
-				files: [{
-					cwd: 'build/',
-					src: [ '**' ],
-					expand: true,
-					dest: ''
-				}]
-			},
-
-		// Copy the files we need from the src folder to appfog/public
 			generated: {
 				files: [{
 					expand: true,
@@ -48,34 +21,6 @@ module.exports = function(grunt) {
 				}]
 			},
 		},
-
-		concat: {
-			options: {
-				process: {
-					data: { version: '<%= pkg.version %>' }
-				}
-			},
-			legacy: {
-				src: [ 'src/CSVParser.js', 'src/json2.js' ],
-				dest: 'build/CSVParser-legacy.js'
-			}
-		},
-
-		uglify: {
-			main: {
-				src: 'build/CSVParser.js',
-				dest: 'build/CSVParser.min.js'
-			},
-			min: {
-				src: 'build/CSVParser-legacy.js',
-				dest: 'build/CSVParser-legacy.min.js'
-			}
-		},
-
-		qunit: {
-			main: 'test/index.html'
-		},
-
 
 		// Main watch task. Kick this off by entering `grunt watch`. Now, any time you change the files below,
 		// the relevant tasks will execute
@@ -116,8 +61,8 @@ module.exports = function(grunt) {
 
 
 
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-contrib-sass' );
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 	grunt.loadNpmTasks( 'grunt-contrib-concat' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
@@ -130,17 +75,10 @@ module.exports = function(grunt) {
 
 		// Default task.
 	grunt.registerTask( 'default', [
-
 		'sass',
 		'copy',
 		'concat', 
 		'uglify'
-
-
 	]);
-
-	// aliases
-	grunt.registerTask( 'server', 'connect:server' );
-	grunt.registerTask( 'sanitycheck', 'connect:sanitycheck' );
 
 };
