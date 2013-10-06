@@ -41,18 +41,18 @@
 	});
 
 	ractive.on({
-		competeReputation: function (event){
+		compete: function ( event, field ) {
 			var yourCard = window.$var.yourCard;
 			var opponentCard = window.$var.opponentCard;
 			
-			if (yourCard.reputation > opponentCard.reputation) {
+			if (yourCard[ field ] > opponentCard[ field ]) {
 				var outcome = 'You win!';
-			} else if (yourCard.reputation < opponentCard.reputation) {
+			} else if (yourCard[ field ] < opponentCard[ field ]) {
 				outcome = 'You lose :(';
 			} else {
 				outcome = 'Draw!';
 			}
-	 
+			
 			this.set({
 				compCard: true,
 				statChoice: false,
@@ -71,78 +71,9 @@
 	});
 
 	ractive.on({
-		competeImpact: function (event){
-			var yourCard = window.$var.yourCard;
-			var opponentCard = window.$var.opponentCard;
-			
-			if (yourCard.impact > opponentCard.impact) {
-				var outcome = 'You win!';
-			} else if (yourCard.impact < opponentCard.impact) {
-				outcome = 'You lose :(';
-			} else {
-				outcome = 'Draw!';
-			}
-
-			this.set({
-				compCard: true,
-				statChoice: false,
-				reset: true,
-				nameC: opponentCard.name,
-				disciplineC: opponentCard.discipline1,
-				/*discipline2C: rand2.discipline2, */
-				descriptionC: opponentCard.description,
-				reputationC: opponentCard.reputation,
-				impactC: opponentCard.impact,
-				controversyC: opponentCard.controversy,
-				imageC: opponentCard.image,
-				message: outcome
-			});
-		}
-	});
-
-	ractive.on({
-		competeControversy: function (event){
-			var yourCard = window.$var.yourCard;
-			var opponentCard = window.$var.opponentCard;
-			
-			if (yourCard.controversy > opponentCard.controversy) {
-				var outcome = 'You win!';
-			} else if (yourCard.controversy < opponentCard.controversy) {
-				outcome = 'You lose :(';
-			} else {
-				outcome = 'Draw!';
-			}
-
-			this.set({
-				compCard: true,
-				statChoice: false,
-				reset: true,
-				nameC: opponentCard.name,
-				disciplineC: opponentCard.discipline1,
-				/*discipline2C: rand2.discipline2, */
-				descriptionC: opponentCard.description,
-				reputationC: opponentCard.reputation,
-				impactC: opponentCard.impact,
-				controversyC: opponentCard.controversy,
-				imageC: opponentCard.image,
-				message: outcome
-			});
-		}
-	});
-
-	ractive.on({
 		playAgain: function (event){ 
-			$.get( 'https://docs.google.com/spreadsheet/pub?key=0AscIRJMcugw8dEp2cXBvMGcwd29hUTR2alBkMnp6bEE&output=csv').then( function ( data ) { // `data` is the contents of data.csv
-				var parser = new CSVParser( data );
-		
-				var scientistCards = parser.json();
-				window.$vars = {
-					scientistCards: scientistCards
-				};
-				shuffle(scientistCards);
-				$('html,body').scrollTop(0);
-			});
-
+			shuffle(window.$vars.scientistCards);
+			document.body.scrollTop = 0;
 
 			this.set({
 				compCard: false,
