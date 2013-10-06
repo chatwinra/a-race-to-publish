@@ -1,198 +1,163 @@
 <!DOCTYPE html>
 <html lang='en-GB'>
+
 <head>
 	<meta charset='utf-8'>
 	<title>A Race To Publish</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
 
-<link href="../../generated/min.css" rel="stylesheet" type="text/javascript">
-<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
-<script type="text/javascript" src="jQuery-1.10.2.js"></script>
-<script type="text/javascript" src="CSVParser.js"></script>
-<script type="text/javascript" src="shuffle.js"></script>
+	<link href="../../generated/min.css" rel="stylesheet" type="text/javascript">
+	<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+	
+	<script type="text/javascript" src="jQuery-1.10.2.js"></script>
+	<script type="text/javascript" src="CSVParser.js"></script>
+	<script type="text/javascript" src="shuffle.js"></script>
 </head>
 
 <body>
 
-<script>
-  $.get( 'https://docs.google.com/spreadsheet/pub?key=0AscIRJMcugw8dEp2cXBvMGcwd29hUTR2alBkMnp6bEE&output=csv').then( function ( data ) { // `data` is the contents of data.csv
-  var parser = new CSVParser( data );
-  
-  var scientistCards = parser.json();
-  window.$vars = {
-    scientistCards: scientistCards
-  };
+	<a href="http://sciencegamed.co.uk"><div id='nav'></div></a>
 
-  shuffle(scientistCards);
+	<div id='container'></div>
 
- 
-  
-});
-</script>
-<a href="http://sciencegamed.co.uk"><div id='nav'></div></a>
+	<script id='tpl' type='text/ractive'>
+		<!--the rules and first button option which fetches a card for the player-->
 
+		<div id='rules'>
+			{{^playerCard}}
+				<h1>To play:</h1>  
+				<h3>Generate your scientist card here: </h3>
+				<button on-click='pickName'>pick a name</button>
+			{{/playerCard}}
 
+			<!--the next button option offers the player the choice of which stat to use. This does 2 things: fetches the opponents card and then compares the 2 cards using the stat the player picked-->
 
-<div id='container'></div>
+			{{#statChoice}}
+		   
+				<h3 >You have your card - Pick a stat to compete on and generate your opponent&#39;s card!</h3>
+				<button on-click='competeReputation'>Reputation</button>
+				</br>
+				<button on-click='competeImpact'>Impact</button>
+				</br>
+				<button on-click='competeControversy'>Controversy</button>
+				</br>
+			{{/statChoice}}
 
-<script id='tpl' type='text/ractive'>
-<!--the rules and first button option which fetches a card for the player-->
+			<!--this controls the 'play again' button so it only appears at the end-->
+			{{#reset}}
+				<h1>{{message}}</h1>
+				<h2>Play Again!</h2>  
+				<button on-click='playAgain'>Play Again!</button>
+			{{/reset}}
 
-<div id='rules'>
-  
-  
-    {{^playerCard}}
-    <h1>To play:</h1>  
-    <h3>Generate your scientist card here: </h3>
-    <button on-click='pickName'>pick a name</button>
-    {{/playerCard}}
+			{{^reset}}
+			{{/reset}}
+		</div>
 
-<!--the next button option offers the player the choice of which stat to use. This does 2 things: fetches the opponents card and then compares the 2 cards using the stat the player picked-->
+		<!--this is an empty template so that when the player has selected a stat, this appears instead of the 3 button option above remaining-->
 
-    {{#statChoice}}
-   
-    <h3 >You have your card - Pick a stat to compete on and generate your opponent&#39;s card!</h3>
-    <button on-click='competeReputation'>Reputation</button>
-    </br>
-    <button on-click='competeImpact'>Impact</button>
-    </br>
-    <button on-click='competeControversy'>Controversy</button>
-    </br>
+		{{^statChoice}}
+		{{/statChoice}}
 
-  
-{{/statChoice}}
-
-<!--this controls the 'play again' button so it only appears at the end-->
-
-{{#reset}}
-<h1>{{message}}</h1>
-<h2>Play Again!</h2>  
-<button on-click='playAgain'>Play Again!</button>
-{{/reset}}
-
-{{^reset}}
-{{/reset}}
-</div>
-
-<!--this is an empty template so that when the player has selected a stat, this appears instead of the 3 button option above remaining-->
-
-{{^statChoice}}
-{{/statChoice}}
-
-<!--the main card container, 'wrap' contains the cards which float left and right-->
+		<!--the main card container, 'wrap' contains the cards which float left and right-->
+		<div id='wrap'>
+			<!--start off with just the back showing as no card is selected-->
+			{{^playerCard}}
+				<div id='main'>
+					<h2>Your Card</h2>
+					<div class='card'>
+						<div class='cardFace'>
+							<img class='backpic' src='../images/logo.jpg'>
+						</div>
+					</div>
+				</div>
+			{{/playerCard}}
 
 
-<div id='wrap'>
-<!--start off with just the back showing as no card is selected-->
-{{^playerCard}}
-<div id='main'>
-<h2>Your Card</h2>
-    <div class='card'>
-      <div class='cardFace'>
-      <img class='backpic' src='../images/logo.jpg'>
-      </div>
-    </div>
- 
-</div>
-{{/playerCard}}
+			<!--appears when the player selects a card-->
+			{{#playerCard}}
+				<div id='main'> 
+					<h2>Your Card</h2>
+					<div class='card'>
+						<div class='cardFace'>
+							<p class='nameField'>{{name}} &#40;{{discipline}}&#41; {{discipline2}}</p>
+							<ul class='ulStats'>
+								<li>Reputation: <b>{{reputation}}</b> </li>
+								<li>Impact: <b>{{impact}}</b> <li>
+								<li>Controversy: <b>{{controversy}}</b> <li>
+							</ul>
+							<p class='descriptionField'>{{description}}</p>
+							<img class='picContainer' src={{image}}>
+						</div>
+					</div>
+				</div>
+			{{/playerCard}}
 
 
+			<!--as above, opponents card starts back facing until fetched-->
 
+			{{^compCard}}
+				<div id='sidebar'>
+					<h2>Opponent Card</h2>
+					<div class='card'>
+						<div class='cardFace'>
+							<img class='backpic' src='../images/logo.jpg'>
+						</div>
+					</div>
+				</div>
+			{{/compCard}}
 
-<!--appears when the player selects a card-->
-{{#playerCard}}
-<div id='main'> 
-<h2>Your Card</h2>
-  <div class='card'>
-      <div class='cardFace'>
-          <p class='nameField'>{{name}} &#40;{{discipline}}&#41; {{discipline2}}</p>
-            <ul class='ulStats'>
-            <li>Reputation: <b>{{reputation}}</b> </li>
-            <li>Impact: <b>{{impact}}</b> <li>
-            <li>Controversy: <b>{{controversy}}</b> <li>
-            </ul>
-          <p class='descriptionField'>{{description}}</p>
-          <img class='picContainer' src={{image}}>
-          
-      </div>
-  </div>
-</div>
-  
-{{/playerCard}}
+			<!--when the card is selected, it shows-->
+			{{#compCard}}
+				<div id='sidebar'>	
+					<h2>Opponent Card</h2>
+					<div class='card'>
+						<div class='cardFace'>
+							<p class='nameField'>{{nameC}} &#40;{{disciplineC}}&#41; {{discipline2}}</p>
+							<ul class='ulStats'>
+								<li>Reputation: <b>{{reputationC}}</b> </li>
+								<li>Impact: <b>{{impactC}}</b> <li>
+								<li>Controversy: <b>{{controversyC}}</b> <li>
+							</ul>
+							<p class='descriptionField'>{{descriptionC}}</p>
+							<img class='picContainer' src={{imageC}}>
+						</div>
+					</div>
+				</div>
+			{{/compCard}}
+		</div>
+	</script>
 
+	<script>
+		$.get( 'https://docs.google.com/spreadsheet/pub?key=0AscIRJMcugw8dEp2cXBvMGcwd29hUTR2alBkMnp6bEE&output=csv').then( function ( data ) { // `data` is the contents of data.csv
+			var parser = new CSVParser( data );
 
-<!--as above, opponents card starts back facing until fetched-->
+			var scientistCards = parser.json();
+			window.$vars = {
+			scientistCards: scientistCards
+		};
 
-{{^compCard}}
-  <div id='sidebar'>
-  <h2>Opponent Card</h2>
-    <div class='card'>
-      <div class='cardFace'>
-      <img class='backpic' src='../images/logo.jpg'>
-      </div>
-    </div>
-  </div>
-{{/compCard}}
+		shuffle(scientistCards);
+	});
+	</script>
 
-<!--when the card is selected, it shows-->
+	<script src='Ractive.js'></script>  
+	<script src='ractiveForGame.js'></script>
 
-{{#compCard}}
+	<footer id='footer'>
+		<img id='artplogo' src='../images/logo.jpg'>
+		
+		<p id='about'> This is an extract from a new card game called 'Science:A Race To Publish'. The game is targeted at 11-18 year olds and aims to introduce some core scientific and general management concepts including famous scientists and theories, science communication theory, career paths in science and money/laboratory management.</p>
+		
+		<p id='about2'>Before you ask, two things we should say about this mini-game. Firstly, the letters next to a scientist's name represents their primary discipline-Biology, Physics, Maths or Chemistry. Secondly, the scores associated with each scientist should be taken in the context which they're given- a game! Obviously every scientist presented here has had a huge impact on their respective fields, but giving them all an impact score of 10 wouldn't make for a very fun game!</p>
 
-<div id='sidebar'>	
-<h2>Opponent Card</h2>
-  <div class='card'>
-      <div class='cardFace'>
-          <p class='nameField'>{{nameC}} &#40;{{disciplineC}}&#41; {{discipline2}}</p>
-            <ul class='ulStats'>
-            <li>Reputation: <b>{{reputationC}}</b> </li>
-            <li>Impact: <b>{{impactC}}</b> <li>
-            <li>Controversy: <b>{{controversyC}}</b> <li>
-            </ul>
-          <p class='descriptionField'>{{descriptionC}}</p>
-          <img class='picContainer' src={{imageC}}>
-          
-      </div>
-  </div>
-</div>
+		<ul id='findoutmore'>
+			<li><a href="mailto:hello@sciencegamed.co.uk?subject=Tell me more!">Contact us</a> for more info</li>
+		</ul>
 
-  
-{{/compCard}}
-
-
-
-
-
-</div>
-</script>
-
-
-
-<script src='Ractive.js'></script>  
-<script src='ractiveForGame.js'></script>
-
-
-	
-
-
-
-
-
-
-
-
-<footer id='footer'>
-<img id='artplogo' src='../images/logo.jpg'>
-<p id='about'> This is an extract from a new card game called 'Science:A Race To Publish'. The game is targeted at 11-18 year olds and aims to introduce some core scientific and general management concepts including famous scientists and theories, science communication theory, career paths in science and money/laboratory management.</p>
-<p id='about2'>Before you ask, two things we should say about this mini-game. Firstly, the letters next to a scientist's name represents their primary discipline-Biology, Physics, Maths or Chemistry. Secondly, the scores associated with each scientist should be taken in the context which they're given- a game! Obviously every scientist presented here has had a huge impact on their respective fields, but giving them all an impact score of 10 wouldn't make for a very fun game!
-</p>
-
-<ul id='findoutmore'>
-<li><a href="mailto:hello@sciencegamed.co.uk?subject=Tell me more!">Contact us</a> for more info</li>
-</ul>
-
-<p id='legal'>Science: Gamed LLP registered no. OC371281. Website content and design copyright &copy; 2013</p>
-</footer>
+		<p id='legal'>Science: Gamed LLP registered no. OC371281. Website content and design copyright &copy; 2013</p>
+	</footer>
 
 </body>
 </html>
