@@ -6,12 +6,12 @@
 	<title>A Race To Publish</title>
 	<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
 
-	<link href="../../generated/min.css" rel="stylesheet" type="text/javascript">
+	<link href="min.css" rel="stylesheet" type="text/javascript">
 	<link href='http://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
 	
-	<script type="text/javascript" src="CSVParser.js"></script>
-	<script type="text/javascript" src="shuffle.js"></script>
+	<script type="text/javascript" src="lib/CSVParser.js"></script>
+	<script type="text/javascript" src="lib/shuffle.js"></script>
 </head>
 
 <body>
@@ -107,7 +107,7 @@
 					<li>Controversy: <b>{{controversy}}</b> <li>
 				</ul>
 				<p class='descriptionField'>{{description}}</p>
-				<img class='picContainer' src='../mugshots/{{image}}.jpg'>
+				<img class='picContainer' src='assets/mugshots/{{image}}.jpg'>
 			</div>
 		</div>
 		<!-- {{/card}} -->
@@ -139,11 +139,11 @@
 		}());
 	</script>
 
-	<script src='Ractive.js'></script>  
-	<script src='ractiveForGame.js'></script>
+	<script src='lib/Ractive.js'></script>  
+	<script src='app.js'></script>
 
 	<footer id='footer'>
-		<img id='artplogo' src='../images/logo.jpg'>
+		<img id='artplogo' src='assets/images/logo.jpg'>
 		
 		<p id='about'> This is an extract from a new card game called 'Science:A Race To Publish'. The game is targeted at 11-18 year olds and aims to introduce some core scientific and general management concepts including famous scientists and theories, science communication theory, career paths in science and money/laboratory management.</p>
 		
