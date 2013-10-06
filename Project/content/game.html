@@ -69,18 +69,7 @@
 			{{#playerCard}}
 				<div id='main'> 
 					<h2>Your Card</h2>
-					<div class='card'>
-						<div class='cardFace'>
-							<p class='nameField'>{{name}} &#40;{{discipline}}&#41; {{discipline2}}</p>
-							<ul class='ulStats'>
-								<li>Reputation: <b>{{reputation}}</b> </li>
-								<li>Impact: <b>{{impact}}</b> <li>
-								<li>Controversy: <b>{{controversy}}</b> <li>
-							</ul>
-							<p class='descriptionField'>{{description}}</p>
-							<img class='picContainer' src='../mugshots/{{image}}.jpg'>
-						</div>
-					</div>
+					{{>card}}
 				</div>
 			{{/playerCard}}
 
@@ -102,21 +91,26 @@
 			{{#compCard}}
 				<div id='sidebar'>	
 					<h2>Opponent Card</h2>
-					<div class='card'>
-						<div class='cardFace'>
-							<p class='nameField'>{{nameC}} &#40;{{disciplineC}}&#41; {{discipline2}}</p>
-							<ul class='ulStats'>
-								<li>Reputation: <b>{{reputationC}}</b> </li>
-								<li>Impact: <b>{{impactC}}</b> <li>
-								<li>Controversy: <b>{{controversyC}}</b> <li>
-							</ul>
-							<p class='descriptionField'>{{descriptionC}}</p>
-							<img class='picContainer' src='../mugshots/{{imageC}}.jpg'>
-						</div>
-					</div>
+					{{>card}}
 				</div>
 			{{/compCard}}
 		</div>
+
+
+		<!-- {{>card}} -->
+		<div class='card'>
+			<div class='cardFace'>
+				<p class='nameField'>{{name}} ({{discipline}})</p>
+				<ul class='ulStats'>
+					<li>Reputation: <b>{{reputation}}</b> </li>
+					<li>Impact: <b>{{impact}}</b> <li>
+					<li>Controversy: <b>{{controversy}}</b> <li>
+				</ul>
+				<p class='descriptionField'>{{description}}</p>
+				<img class='picContainer' src='../mugshots/{{image}}.jpg'>
+			</div>
+		</div>
+		<!-- {{/card}} -->
 	</script>
 
 	<script>

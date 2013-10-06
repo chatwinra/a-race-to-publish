@@ -26,16 +26,8 @@
 			
 
 			this.set({
-				playerCard: true,
-				statChoice: true,
-				name: yourCard.name,
-				discipline: yourCard.discipline1,
-				/*discipline2: rand.discipline2,*/ 
-				description: yourCard.description,
-				reputation: yourCard.reputation,
-				impact: yourCard.impact,
-				controversy: yourCard.controversy,
-				image: yourCard.image 
+				playerCard: yourCard,
+				statChoice: true
 			});
 		}
 	});
@@ -54,17 +46,9 @@
 			}
 			
 			this.set({
-				compCard: true,
+				compCard: opponentCard,
 				statChoice: false,
 				reset: true,
-				nameC: opponentCard.name,
-				disciplineC: opponentCard.discipline1,
-				/*discipline2C: rand2.discipline2, */
-				descriptionC: opponentCard.description,
-				reputationC: opponentCard.reputation,
-				impactC: opponentCard.impact,
-				controversyC: opponentCard.controversy,
-				imageC: opponentCard.image, 
 				message: outcome
 			});
 		}
