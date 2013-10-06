@@ -17,90 +17,18 @@
 
 	<div id='container'></div>
 
-	<script id='tpl' type='text/ractive'>
-		<!--the rules and first button option which fetches a card for the player-->
+	<footer>
+		<img class='footer-logo' src='assets/images/logo.jpg'>
+		
+		<p> This is an extract from a new card game called 'Science:A Race To Publish'. The game is targeted at 11-18 year olds and aims to introduce some core scientific and general management concepts including famous scientists and theories, science communication theory, career paths in science and money/laboratory management.</p>
+		
+		<p>Before you ask, two things we should say about this mini-game. Firstly, the letters next to a scientist's name represents their primary discipline-Biology, Physics, Maths or Chemistry. Secondly, the scores associated with each scientist should be taken in the context which they're given- a game! Obviously every scientist presented here has had a huge impact on their respective fields, but giving them all an impact score of 10 wouldn't make for a very fun game!</p>
 
-		<div id='rules'>
-			{{^playerCard}}
-				<h1>To play:</h1>  
-				<h3>Generate your scientist card here: </h3>
-				<button on-click='pickName'>pick a name</button>
-			{{/playerCard}}
+		<p><a href="mailto:hello@sciencegamed.co.uk?subject=Tell me more!">Contact us</a> for more info</p>
 
-			<!--the next button option offers the player the choice of which stat to use. This does 2 things: fetches the opponents card and then compares the 2 cards using the stat the player picked-->
+		<p class='footer-smallprint'>Science: Gamed LLP registered no. OC371281. Website content and design copyright &copy; 2013</p>
+	</footer>
 
-			{{#statChoice}}
-				<h3 >You have your card - Pick a stat to compete on and generate your opponent&#39;s card!</h3>
-				<button on-click='compete:reputation'>Reputation</button>
-				<button on-click='compete:impact'>Impact</button>
-				<button on-click='compete:controversy'>Controversy</button>
-			{{/statChoice}}
-
-			<!--this controls the 'play again' button so it only appears at the end-->
-			{{#reset}}
-				<h1>{{message}}</h1>
-				<h2>Play Again!</h2>  
-				<button on-click='playAgain'>Play Again!</button>
-			{{/reset}}
-		</div>
-
-		<!--the main card container, 'wrap' contains the cards which float left and right-->
-		<div class='wrap'>
-			<!--start off with just the back showing as no card is selected-->
-			<div class='player'>
-				{{^playerCard}}
-					<h2>Your Card</h2>
-					<div class='card'>
-						<div class='cardFace'>
-							<img class='backpic' src='../images/logo.jpg'>
-						</div>
-					</div>
-				{{/playerCard}}
-
-
-				<!--appears when the player selects a card-->
-				{{#playerCard}}
-					<h2>Your Card</h2>
-					{{>card}}
-				{{/playerCard}}
-			</div>
-
-			<!--as above, opponents card starts back facing until fetched-->
-
-			<div class='opponent'>
-				{{^compCard}}
-					<h2>Opponent Card</h2>
-					<div class='card'>
-						<div class='cardFace'>
-							<img class='backpic' src='../images/logo.jpg'>
-						</div>
-					</div>
-				{{/compCard}}
-
-				<!--when the card is selected, it shows-->
-				{{#compCard}}
-					<h2>Opponent Card</h2>
-					{{>card}}
-				{{/compCard}}
-			</div>
-		</div>
-
-
-		<!-- {{>card}} -->
-		<div class='card'>
-			<div class='cardFace'>
-				<p class='nameField'>{{name}} ({{discipline}})</p>
-				<ul class='ulStats'>
-					<li>Reputation: <b>{{reputation}}</b> </li>
-					<li>Impact: <b>{{impact}}</b> <li>
-					<li>Controversy: <b>{{controversy}}</b> <li>
-				</ul>
-				<p class='descriptionField'>{{description}}</p>
-				<img class='picContainer' src='assets/mugshots/{{image}}.jpg'>
-			</div>
-		</div>
-		<!-- {{/card}} -->
-	</script>
 
 	<script src="lib/CSVParser.js"></script>
 	<script src="lib/shuffle.js"></script>
@@ -133,18 +61,6 @@
 
 	<script src='lib/Ractive.js'></script>  
 	<script src='app.js'></script>
-
-	<footer>
-		<img class='footer-logo' src='assets/images/logo.jpg'>
-		
-		<p> This is an extract from a new card game called 'Science:A Race To Publish'. The game is targeted at 11-18 year olds and aims to introduce some core scientific and general management concepts including famous scientists and theories, science communication theory, career paths in science and money/laboratory management.</p>
-		
-		<p>Before you ask, two things we should say about this mini-game. Firstly, the letters next to a scientist's name represents their primary discipline-Biology, Physics, Maths or Chemistry. Secondly, the scores associated with each scientist should be taken in the context which they're given- a game! Obviously every scientist presented here has had a huge impact on their respective fields, but giving them all an impact score of 10 wouldn't make for a very fun game!</p>
-
-		<p><a href="mailto:hello@sciencegamed.co.uk?subject=Tell me more!">Contact us</a> for more info</p>
-
-		<p class='footer-smallprint'>Science: Gamed LLP registered no. OC371281. Website content and design copyright &copy; 2013</p>
-	</footer>
 
 </body>
 </html>
