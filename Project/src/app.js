@@ -53,10 +53,8 @@
 					playerCard: yourCard,
 					statChoice: true
 				});
-			}
-		});
+			},
 
-		ractive.on({
 			compete: function ( event, field ) {
 				var yourCard = window.$var.yourCard;
 				var opponentCard = window.$var.opponentCard;
@@ -75,10 +73,8 @@
 					reset: true,
 					message: outcome
 				});
-			}
-		});
-
-		ractive.on({
+			},
+			
 			playAgain: function (event){ 
 				shuffle(window.$vars.scientistCards);
 				document.body.scrollTop = 0;
