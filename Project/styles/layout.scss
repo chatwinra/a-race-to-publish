@@ -1,19 +1,11 @@
-#wrap {
-	width: 60%;
-	overflow: auto;
-	margin: 10px auto;
+.wrap {
+	max-width: 48em;
+	margin: 0 auto 2em auto;
+	@include clearfix;
 }
 
-.player {
+.player, .opponent {
+	width: 50%;
 	float: left;
-	border-spacing: 0em;
-	margin: 2em;
-	text-align: center;
-}
-
-.opponent {
-	float: right;
-	border-spacing: 0em;
-	margin: 2em;
 	text-align: center;
 }
