@@ -70,7 +70,7 @@ module.exports = function(grunt) {
 		fetch: {
 			csv: {
 				url: 'https://docs.google.com/spreadsheet/pub?key=0Amx0ykTxmI2KdEd1cTNNSUZaRUhXcVluLTJ4TmFpbnc&output=csv',
-				dest: 'Project/content/data.csv'
+				dest: 'Project/src/data.csv'
 			}
 		}
 
