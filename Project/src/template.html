@@ -28,52 +28,72 @@
 <div class='wrap'>
 	<!--start off with just the back showing as no card is selected-->
 	<div class='player'>
-		{{^playerCard}}
-			<h2>Your Card</h2>
-			<div class='card'>
-				<div class='cardFace'>
-					<img class='backpic' src='../images/logo.jpg'>
-				</div>
-			</div>
-		{{/playerCard}}
+		<h2>You</h2>
+		
+		<div class='card'>	
+			{{^playerCard}}
+				<div class='card-back'></div>
+			{{/playerCard}}
 
+			<!--appears when the player selects a card-->
+			{{#playerCard}}
+				<div class='card-front'>
+					<p class='name'>{{name}} ({{discipline}})</p>
+					<ul class='fields'>
+						<li on-tap='selectField:reputation' class='field {{ selectedField === "reputation" ? "selected" : "" }}'>
+							Reputation: <span class='stat'>{{reputation}}</span>
+						</li>
 
-		<!--appears when the player selects a card-->
-		{{#playerCard}}
-			<h2>Your Card</h2>
-			
-			<div class='card'>
-				<div class='cardFace'>
-					<p class='nameField'>{{name}} ({{discipline}})</p>
-					<ul class='ulStats'>
-						<li on-tap='selectField:reputation' class='field {{ selectedField === "reputation" ? "selected" : "" }}'>Reputation: <b>{{reputation}}</b> </li>
-						<li on-tap='selectField:impact' class='field {{ selectedField === "impact" ? "selected" : "" }}'>Impact: <b>{{impact}}</b> </li>
-						<li on-tap='selectField:controversy' class='field {{ selectedField === "controversy" ? "selected" : "" }}'>Controversy: <b>{{controversy}}</b> </li>
+						<li on-tap='selectField:impact' class='field {{ selectedField === "impact" ? "selected" : "" }}'>
+							Impact: <span class='stat'>{{impact}}</span>
+						</li>
+
+						<li on-tap='selectField:controversy' class='field {{ selectedField === "controversy" ? "selected" : "" }}'>
+							Controversy: <span class='stat'>{{controversy}}</span>
+						</li>
 					</ul>
-					<p class='descriptionField'>{{description}}</p>
-					<img class='picContainer' src='assets/mugshots/{{image}}.jpg'>
+					<div class='details'>
+						<img class='mugshot' src='assets/mugshots/{{image}}.jpg'>
+						<p>{{description}}</p>
+					</div>
 				</div>
-			</div>
-		{{/playerCard}}
+			{{/playerCard}}
+		</div>
 	</div>
 
 	<!--as above, opponents card starts back facing until fetched-->
 
 	<div class='opponent'>
-		{{^compCard}}
-			<h2>Opponent Card</h2>
-			<div class='card'>
-				<div class='cardFace'>
-					<img class='backpic' src='../images/logo.jpg'>
-				</div>
-			</div>
-		{{/compCard}}
+		<h2>Opponent</h2>
+		<div class='card'>
+			{{^compCard}}
+				<div class='card-back'></div>
+			{{/compCard}}
 
-		<!--when the card is selected, it shows-->
-		{{#compCard}}
-			<h2>Opponent Card</h2>
-			{{>card}}
-		{{/compCard}}
+			<!--when the card is selected, it shows-->
+			{{#compCard}}
+				<div class='card-front'>
+					<p class='name'>{{name}} ({{discipline}})</p>
+					<ul class='fields'>
+						<li class='field {{ selectedField === "reputation" ? "selected" : "" }}'>
+							Reputation: <span class='stat'>{{reputation}}</span>
+						</li>
+
+						<li class='field {{ selectedField === "impact" ? "selected" : "" }}'>
+							Impact: <span class='stat'>{{impact}}</span>
+						</li>
+
+						<li class='field {{ selectedField === "controversy" ? "selected" : "" }}'>
+							Controversy: <span class='stat'>{{controversy}}</span>
+						</li>
+					</ul>
+					<div class='details'>
+						<img class='mugshot' src='assets/mugshots/{{image}}.jpg'>
+						<p>{{description}}</p>
+					</div>
+				</div>
+			{{/compCard}}
+		</div>
 	</div>
 </div>
 
