@@ -2,7 +2,95 @@
 
 	'use strict';
 
-	var game = {};
+	var game = {
+		// Initialise the view
+		render: function ( template ) {
+			game.view = new Ractive({
+				el: 'container',
+				template: template
+			});
+
+			game.view.on({
+				start: game.start,
+
+				selectField: function ( event, field ) {
+					game.selectField( field );
+				},
+
+				playAgain: function (event){ 
+					game.reset();
+					game.start();
+				}
+			});
+		},
+
+		reset: function () {
+			game.view.set({
+				compCard: false,
+				playerCard: false,
+				statChoice: false,
+				reset: false
+			});
+		},
+
+		// Start a new round
+		start: function () {
+			
+			// Clone deck and shuffle
+			var deck = shuffle( game.deck.slice() );
+
+			// If there's an uneven number of cards, burn one
+			if ( deck.length % 2 ) {
+				deck.pop();
+			}
+
+			// Deal hands (the easy way)
+			game.playerHand = deck.splice( 0, deck.length / 2 );
+			game.opponentHand = deck; // contains remaining hands
+
+			// Take the first turn
+			game.turn();
+		},
+
+		// Start a new turn
+		turn: function () {
+			game.playerCard = game.playerHand.shift();
+			game.opponentCard = game.opponentHand.shift();
+
+			game.view.set( 'playerCard', game.playerCard );
+		},
+
+		// Select a field
+		selectField: function ( field ) {
+			var d = game.playerCard[ field ] - game.opponentCard[ field ];
+
+			if ( d > 0 ) {
+				game.win();
+			} else if ( d < 0 ) {
+				game.lose();
+			} else {
+				game.draw();
+			}
+			
+			game.view.set({
+				compCard: game.opponentCard,
+				statChoice: false,
+				reset: true
+			});
+		},
+
+		win: function () {
+			game.view.set( 'message', 'You win!' );
+		},
+
+		lose: function () {
+			game.view.set( 'message', 'You lose :(' );
+		},
+
+		draw: function () {
+			game.view.set( 'message', 'Draw!' );
+		}
+	};
 	
 
 	// load CSV data
@@ -15,67 +103,7 @@
 
 	// load template
 	get( 'template.html', function ( template ) {
-		var ractive = new Ractive({
-			el: 'container',
-			template: template,
-			data: {
-				playerCard: false,
-				compCard: false,
-				statChoice: false,
-				reset: false
-			}
-		});
-
-		ractive.on({
-			pickName: function (event) {
-				var cardDeck = shuffle( game.deck.slice() ); // clone...
-				var yourCard = cardDeck.pop();
-				var opponentCard = cardDeck.pop();
-				window.$var = {
-					yourCard: yourCard,
-					opponentCard: opponentCard
-				};
-			 
-				
-
-				this.set({
-					playerCard: yourCard,
-					statChoice: true
-				});
-			},
-
-			compete: function ( event, field ) {
-				var yourCard = window.$var.yourCard;
-				var opponentCard = window.$var.opponentCard;
-				
-				if (yourCard[ field ] > opponentCard[ field ]) {
-					var outcome = 'You win!';
-				} else if (yourCard[ field ] < opponentCard[ field ]) {
-					outcome = 'You lose :(';
-				} else {
-					outcome = 'Draw!';
-				}
-				
-				this.set({
-					compCard: opponentCard,
-					statChoice: false,
-					reset: true,
-					message: outcome
-				});
-			},
-
-			playAgain: function (event){ 
-				shuffle(window.$vars.scientistCards);
-				document.body.scrollTop = 0;
-
-				this.set({
-					compCard: false,
-					playerCard: false,
-					statChoice: false,
-					reset: false
-				});
-			}
-		});
+		game.render( template );
 	});
 
 
