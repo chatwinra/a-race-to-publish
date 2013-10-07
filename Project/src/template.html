@@ -1,10 +1,10 @@
 <!--the rules and first button option which fetches a card for the player-->
 
-<div id='rules'>
+<div class='rules'>
 	{{^playerCard}}
 		<h1>To play:</h1>  
 		<h3>Generate your scientist card here: </h3>
-		<button on-click='pickName'>pick a name</button>
+		<button on-click='start'>pick a name</button>
 	{{/playerCard}}
 
 	<!--the next button option offers the player the choice of which stat to use. This does 2 things: fetches the opponents card and then compares the 2 cards using the stat the player picked-->
@@ -41,7 +41,19 @@
 		<!--appears when the player selects a card-->
 		{{#playerCard}}
 			<h2>Your Card</h2>
-			{{>card}}
+			
+			<div class='card'>
+				<div class='cardFace'>
+					<p class='nameField'>{{name}} ({{discipline}})</p>
+					<ul class='ulStats'>
+						<li on-tap='selectField:reputation' class='field {{ selectedField === "reputation" ? "selected" : "" }}'>Reputation: <b>{{reputation}}</b> </li>
+						<li on-tap='selectField:impact' class='field {{ selectedField === "impact" ? "selected" : "" }}'>Impact: <b>{{impact}}</b> </li>
+						<li on-tap='selectField:controversy' class='field {{ selectedField === "controversy" ? "selected" : "" }}'>Controversy: <b>{{controversy}}</b> </li>
+					</ul>
+					<p class='descriptionField'>{{description}}</p>
+					<img class='picContainer' src='assets/mugshots/{{image}}.jpg'>
+				</div>
+			</div>
 		{{/playerCard}}
 	</div>
 
