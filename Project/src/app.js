@@ -2,12 +2,25 @@
 
 	'use strict';
 
+	/* TODO
+	
+		* don't reset after each turn, start a new one until no cards are left
+		* keep track of score
+		* display score
+		* fix UI
+		* etc...
+
+	*/
+
 	var game = {
 		// Initialise the view
 		render: function ( template ) {
 			game.view = new Ractive({
 				el: 'container',
-				template: template
+				template: template,
+				data: {
+					pending: true
+				}
 			});
 
 			game.view.on({
@@ -28,8 +41,8 @@
 			game.view.set({
 				compCard: false,
 				playerCard: false,
-				statChoice: false,
-				reset: false
+				reset: false,
+				pending: true
 			});
 		},
 
@@ -47,6 +60,12 @@
 			// Deal hands (the easy way)
 			game.playerHand = deck.splice( 0, deck.length / 2 );
 			game.opponentHand = deck; // contains remaining hands
+
+			// Unfade cards and hide 'turn over card to start' message
+			game.view.set({
+				pending: false,
+				showInstructions: true
+			});
 
 			// Take the first turn
 			game.turn();
@@ -74,21 +93,21 @@
 			
 			game.view.set({
 				compCard: game.opponentCard,
-				statChoice: false,
-				reset: true
+				reset: true,
+				showInstructions: false
 			});
 		},
 
 		win: function () {
-			game.view.set( 'message', 'You win!' );
+			game.view.set( 'dialog', 'You win!' );
 		},
 
 		lose: function () {
-			game.view.set( 'message', 'You lose :(' );
+			game.view.set( 'dialog', 'You lose :(' );
 		},
 
 		draw: function () {
-			game.view.set( 'message', 'Draw!' );
+			game.view.set( 'dialog', 'Draw!' );
 		}
 	};
 	

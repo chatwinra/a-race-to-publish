@@ -1,21 +1,6 @@
 <!--the rules and first button option which fetches a card for the player-->
 
 <div class='rules'>
-	{{^playerCard}}
-		<h1>To play:</h1>  
-		<h3>Generate your scientist card here: </h3>
-		<button on-click='start'>pick a name</button>
-	{{/playerCard}}
-
-	<!--the next button option offers the player the choice of which stat to use. This does 2 things: fetches the opponents card and then compares the 2 cards using the stat the player picked-->
-
-	{{#statChoice}}
-		<h3 >You have your card - Pick a stat to compete on and generate your opponent&#39;s card!</h3>
-		<button on-click='compete:reputation'>Reputation</button>
-		<button on-click='compete:impact'>Impact</button>
-		<button on-click='compete:controversy'>Controversy</button>
-	{{/statChoice}}
-
 	<!--this controls the 'play again' button so it only appears at the end-->
 	{{#reset}}
 		<h1>{{message}}</h1>
@@ -32,13 +17,19 @@
 		
 		<div class='card'>	
 			{{^playerCard}}
-				<div class='card-back'></div>
+				<div class='card-back {{ pending ? "faded" : "" }}'></div>
 			{{/playerCard}}
 
 			<!--appears when the player selects a card-->
 			{{#playerCard}}
 				<div class='card-front'>
 					<p class='name'>{{name}} ({{discipline}})</p>
+
+					<div class='details'>
+						<img class='mugshot' src='assets/mugshots/{{image}}.jpg'>
+						<p>{{description}}</p>
+					</div>
+
 					<ul class='fields'>
 						<li on-tap='selectField:reputation' class='field {{ selectedField === "reputation" ? "selected" : "" }}'>
 							Reputation: <span class='stat'>{{reputation}}</span>
@@ -52,12 +43,16 @@
 							Controversy: <span class='stat'>{{controversy}}</span>
 						</li>
 					</ul>
-					<div class='details'>
-						<img class='mugshot' src='assets/mugshots/{{image}}.jpg'>
-						<p>{{description}}</p>
-					</div>
 				</div>
 			{{/playerCard}}
+
+			{{#pending}}
+				<div class='pending-wrapper'>
+					<div class='pending' on-tap='start'>
+					Turn over a card to start the game!
+					</div>
+				</div>
+			{{/pending}}
 		</div>
 	</div>
 
@@ -67,7 +62,7 @@
 		<h2>Opponent</h2>
 		<div class='card'>
 			{{^compCard}}
-				<div class='card-back'></div>
+				<div class='card-back {{ pending ? "faded" : "" }}'></div>
 			{{/compCard}}
 
 			<!--when the card is selected, it shows-->
@@ -93,8 +88,22 @@
 					</div>
 				</div>
 			{{/compCard}}
+
+			{{#showInstructions}}
+				<div class='instructions-wrapper' intro='fade' outro='fade'>
+					<p class='info'>pick a stat to compete on. If it's higher than the same stat on this card, you win</p>
+				</div>
+			{{/showInstructions}}
 		</div>
 	</div>
+
+	{{#dialog}}
+		<div class='dialog-wrapper'>
+			<p class='dialog info'>
+				{{dialog}}
+			</p>
+		</div>
+	{{/dialog}}
 </div>
 
 

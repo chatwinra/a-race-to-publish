@@ -1,0 +1,29 @@
+@import "base";
+
+.pending-wrapper {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	padding: 1em;
+	@include border-box;
+}
+
+.pending {
+	position: relative;
+	top: 50%;
+	background-color: $blue;
+	color: white;
+	-webkit-transform: translate(0,-50%);
+	-moz-transform: translate(0,-50%);
+	-ms-transform: translate(0,-50%);
+	-o-transform: translate(0,-50%);
+	transform: translate(0,-50%);
+	padding: 1em 3em;
+	text-align: center;
+	cursor: pointer;
+	border: 1px solid white;
+	border-radius: 0.2em;
+	box-shadow: 0 0 4px white;
+}

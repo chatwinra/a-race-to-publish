@@ -1,4 +1,5 @@
 .card {
+	position: relative;
 	border: 1px solid #333;
 	border-radius: 0.2em;
 	width: 18em;
@@ -13,6 +14,17 @@
 	height: 100%;
 	background: url(assets/images/logo.jpg) no-repeat 50% 50%;
 	background-size: contain;
+	opacity: 1;
+
+	-webkit-transition: opacity 0.4s;
+	-moz-transition: opacity 0.4s;
+	-ms-transition: opacity 0.4s;
+	-o-transition: opacity 0.4s;
+	transition: opacity 0.4s;
+
+	&.faded {
+		opacity: 0.5;
+	}
 }
 
 .card-front {
@@ -71,6 +83,7 @@
 	line-height: 1;
 	padding: 0.5em;
 	margin: 0 0 0.5em 0;
+	border-radius: 0.1em;
 
 	&:last-child {
 		margin: 0;

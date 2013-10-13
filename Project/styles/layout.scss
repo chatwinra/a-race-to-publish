@@ -1,4 +1,5 @@
 .wrap {
+	position: relative;
 	max-width: 48em;
 	margin: 0 auto 2em auto;
 	@include clearfix;
