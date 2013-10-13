@@ -54,8 +54,8 @@ button {
 	background-color: #eee;
 	border: 1px solid #aaa;
 	border-radius: 0.2em;
-	box-shadow: 0 0 4px white;
-	padding: 1em;
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+	padding: 1em 2em;
 	margin: 0;
 	@include border-box;
 }
@@ -63,7 +63,6 @@ button {
 @import "layout";
 @import "card";
 @import "nav";
-@import "rules";
 @import "footer";
 @import "pending";
 @import "instructions";
