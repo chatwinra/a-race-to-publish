@@ -30,6 +30,10 @@
 					game.selectField( field );
 				},
 
+				nextTurn: function ( event ) {
+					game.turn();
+				},
+
 				playAgain: function (event){ 
 					game.reset();
 					game.start();
@@ -39,10 +43,11 @@
 
 		reset: function () {
 			game.view.set({
-				compCard: false,
-				playerCard: false,
-				reset: false,
-				pending: true
+				opponentCard: null,
+				playerCard: null,
+				pending: true,
+				dialog: null,
+				endgame: false
 			});
 		},
 
@@ -61,10 +66,18 @@
 			game.playerHand = deck.splice( 0, deck.length / 2 );
 			game.opponentHand = deck; // contains remaining hands
 
+			// Create a pot in the centre - in a draw, the cards go here
+			game.centrePot = [];
+
 			// Unfade cards and hide 'turn over card to start' message
 			game.view.set({
 				pending: false,
-				showInstructions: true
+				showInstructions: true,
+
+				deck: game.deck, // just so we can get the length property for the stack
+				playerHand: game.playerHand,
+				opponentHand: game.opponentHand,
+				centrePot: game.centrePot
 			});
 
 			// Take the first turn
@@ -76,7 +89,12 @@
 			game.playerCard = game.playerHand.shift();
 			game.opponentCard = game.opponentHand.shift();
 
-			game.view.set( 'playerCard', game.playerCard );
+			game.view.set({
+				playerCard: game.playerCard,
+				opponentCard: false,
+				dialog: null,
+				selectedField: null
+			});
 		},
 
 		// Select a field
@@ -92,24 +110,74 @@
 			}
 			
 			game.view.set({
-				compCard: game.opponentCard,
-				reset: true,
-				showInstructions: false
+				opponentCard: game.opponentCard,
+				showInstructions: false,
+				selectedField: field
 			});
 		},
 
 		win: function () {
-			game.view.set( 'dialog', 'You win!' );
+			game.transferCards( true );
+
+			if ( !game.opponentHand.length ) {
+				game.winGame();
+			} else {
+				game.view.set( 'dialog.message', 'You win!' );
+			}
 		},
 
 		lose: function () {
-			game.view.set( 'dialog', 'You lose :(' );
+			game.transferCards( false );
+			
+			if ( !game.playerHand.length ) {
+				game.loseGame();
+			} else {
+				game.view.set( 'dialog.message', 'You lose :(' );
+			}
 		},
 
 		draw: function () {
-			game.view.set( 'dialog', 'Draw!' );
+			game.centrePot.push( game.playerCard, game.opponentCard );
+
+			if ( !game.opponentHand.length ) {
+				game.winGame();
+			} else if ( !game.playerHand.length ) {
+				game.loseGame();
+			} else {
+				game.view.set( 'dialog.message', 'Draw!' );
+			}
+		},
+
+		winGame: function () {
+			// won the game
+			game.view.set({
+				'dialog.message': 'You have won the game!',
+				endgame: true
+			});
+		},
+
+		loseGame: function () {
+			// won the game
+			game.view.set({
+				'dialog.message': 'You have lost the game :(',
+				endgame: true
+			});
+		},
+
+		transferCards: function ( playerWon ) {
+			var winnings, hand;
+
+			winnings = [ game.playerCard, game.opponentCard ].concat( game.centrePot );
+			hand = playerWon ? game.playerHand : game.opponentHand;
+
+			hand.push.apply( hand, winnings );
+
+			// empty the center pot
+			game.centrePot.splice( 0 );
 		}
 	};
+
+	window.game = game; // for the debugging
 	
 
 	// load CSV data
