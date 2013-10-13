@@ -47,12 +47,15 @@
 				playerCard: null,
 				pending: true,
 				dialog: null,
-				endgame: false
+				endgame: false,
+				playerTurn: true
 			});
 		},
 
 		// Start a new round
 		start: function () {
+
+			game.reset();
 			
 			// Clone deck and shuffle
 			var deck = shuffle( game.deck.slice() );
@@ -240,7 +243,6 @@
 	function preload ( url ) {
 		var image = new Image();
 		image.src = url;
-		console.log( 'preloaded', url );
 	}
 
 }());

@@ -100,6 +100,15 @@
 		</div>
 	</div>
 
+	{{^pending}}
+		<div class='whose-turn' intro='fade' outro='fade'>
+			<span class='whose-turn-info'>{{ playerTurn ? "your" : "opponent's" }}<br>turn</span>
+
+			<span class='whose-turn-player {{ playerTurn ? "active" : "" }}'>&#8592;</span>
+			<span class='whose-turn-opponent {{ !playerTurn ? "active" : "" }}'>&#8594;</span>
+		</div>
+	{{/pending}}
+
 	{{#dialog}}
 		<div class='dialog-wrapper'>
 			<p class='dialog info'>
