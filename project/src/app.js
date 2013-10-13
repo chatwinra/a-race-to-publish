@@ -84,16 +84,20 @@
 			});
 
 			// Take the first turn
+			game.playerTurn = true;
 			game.turn();
 		},
 
 		// Start a new turn
 		turn: function () {
+			var toPreload;
+
 			game.playerCard = game.playerHand.shift();
 			game.opponentCard = game.opponentHand.shift();
 
-			// preload opponent card image
-			preload( 'assets/mugshots/' + game.opponentCard.image + '.jpg' );
+			// preload whichever card wasn't revealed
+			toPreload = ( game.playerTurn ? game.opponentCard : game.playerCard ).image;
+			preload( 'assets/mugshots/' + toPreload + '.jpg' );
 
 			// preload next pair of images
 			if ( game.playerHand[0] ) {
@@ -106,16 +110,65 @@
 
 			// update view
 			game.view.set({
-				playerCard: game.playerCard,
-				opponentCard: false,
+				playerTurn: game.playerTurn,
 				dialog: null,
 				selectedField: null
 			});
+
+			// if it's the player's turn, we show it and wait for a decision...
+			if ( game.playerTurn ) {
+				game.view.set({
+					playerCard: game.playerCard,
+					opponentCard: false
+				});
+			}
+
+
+			// ...otherwise we reveal the opponent's card and trigger an AI decision
+			else {
+				game.view.set({
+					playerCard: false,
+					opponentCard: game.opponentCard
+				});
+
+				// wait a second or two to give the illusion of some kind of
+				// thought process
+				setTimeout( function () {
+					game.selectAIField();
+				}, 500 + Math.random() * 2000 );
+			}	
+		},
+
+		selectAIField: function () {
+			var card = game.opponentCard, ordered;
+
+			// for now, just choose the highest scoring field
+			// TODO refactor
+			ordered = shuffle([ 'reputation', 'impact', 'controversy' ])
+				.map( function ( field ) {
+					return {
+						field: field,
+						score: card[ field ]
+					};
+				})
+				.sort( function ( a, b ) {
+					return b.score - a.score;
+				});
+
+			game.selectField( ordered[0].field );
 		},
 
 		// Select a field
 		selectField: function ( field ) {
-			var d = game.playerCard[ field ] - game.opponentCard[ field ];
+			var d;
+
+			if ( game.playerTurn ) {
+				game.view.set( 'opponentCard', game.opponentCard );
+			} else {
+				game.view.set( 'playerCard', game.playerCard );
+			}
+			
+			d = game.playerCard[ field ] - game.opponentCard[ field ];
 
 			if ( d > 0 ) {
 				game.win();
@@ -124,9 +177,8 @@
 			} else {
 				game.draw();
 			}
-			
+
 			game.view.set({
-				opponentCard: game.opponentCard,
 				showInstructions: false,
 				selectedField: field
 			});
@@ -140,6 +192,8 @@
 			} else {
 				game.view.set( 'dialog.message', 'You win!' );
 			}
+
+			game.playerTurn = true;
 		},
 
 		lose: function () {
@@ -150,6 +204,8 @@
 			} else {
 				game.view.set( 'dialog.message', 'You lose :(' );
 			}
+
+			game.playerTurn = false;
 		},
 
 		draw: function () {
