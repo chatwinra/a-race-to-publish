@@ -1,0 +1,128 @@
+.card {
+	position: relative;
+	border: 1px solid #333;
+	border-radius: 0.2em;
+	width: 18em;
+	height: 24em;
+	text-align: left;
+	background-color: #FEFCFF;
+	box-shadow: 0 0 3px rgba(0,0,0,0.2);
+
+	.player & {
+		margin: 0 2em 0 auto;
+	}
+
+	.opponent & {
+		margin: 0 auto 0 2em;
+	}
+}
+
+.card-back {
+	height: 100%;
+	background: url(assets/images/logo.jpg) no-repeat 50% 50%;
+	background-size: contain;
+	opacity: 1;
+
+	-webkit-transition: opacity 0.4s;
+	-moz-transition: opacity 0.4s;
+	-ms-transition: opacity 0.4s;
+	-o-transition: opacity 0.4s;
+	transition: opacity 0.4s;
+
+	&.faded {
+		opacity: 0.5;
+	}
+}
+
+.card-front {
+	height: 100%;
+	position: relative;
+	padding: 2em 0.5em 8em 0.5em;
+	@include border-box;
+}
+
+.name {
+	position: absolute;
+	width: 100%;
+	top: 0;
+	left: 0;
+	line-height: 1;
+	padding: 0.5em;
+	text-align: center;
+	margin: 0;
+	@include border-box;
+}
+
+.details {
+	width: 100%;
+	height: 100%;
+	padding: 0.5em 0;
+	border-top: 1px solid #eee;
+	border-bottom: 1px solid #eee;
+	@include border-box;
+
+	p {
+		font-size: 0.8em;
+	}
+}
+
+.mugshot {
+	height: 7.5em;
+	float: right;
+	margin: 0 0 0.5em 1em;
+}
+
+.fields {
+	position: absolute;
+	width: 100%;
+	bottom: 0;
+	left: 0;
+	list-style-type: none;
+	margin: 0;
+	padding: 0.5em;
+	@include border-box;
+}
+
+.field {
+	background-color: $light-blue;
+	color: $blue;
+	cursor: pointer;
+	line-height: 1;
+	padding: 0.5em;
+	margin: 0 0 0.5em 0;
+	border-radius: 0.1em;
+
+	&:last-child {
+		margin: 0;
+	}
+
+	&.selected {
+		background-color: $blue;
+		color: white;
+	}
+}
+
+.stat {
+	float: right;
+}
+
+.stack-count {
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	width: 4em;
+	line-height: 1;
+
+	.player & {
+		left: -5em;
+	}
+
+	.opponent & {
+		right: -5em;
+	}
+
+	strong {
+		display: block;
+		font-size: 1.8em;
+	}
+}

@@ -1,0 +1,7 @@
+.DS_Store
+temp/
+images/
+node_modules/
+generated/
+.sass-cache/
+build/

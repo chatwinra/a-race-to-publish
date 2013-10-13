@@ -2,132 +2,104 @@
 module.exports = function(grunt) {
 
 	// Project configuration.
-			'use strict';
+	'use strict';
 
 	grunt.initConfig({
 
 		pkg: grunt.file.readJSON( 'package.json' ),
 
+		prod: false,
+		min: false,
+
 		copy: {
-			build: {
-				src: 'src/CSVParser.js',
-				dest: 'build/CSVParser.js',
-				options: {
-					processContent: function ( content ) {
-						return content.replace( '<%= version %>', grunt.template.process( '<%= pkg.version %>' ) );
-					}
-				}
-			},
-			release: {
-				files: [{
-					cwd: 'build/',
-					src: [ '**' ],
-					expand: true,
-					dest: 'release/<%= pkg.version %>/'
-				}]
-			},
-			shortcut: {
-				files: [{
-					cwd: 'build/',
-					src: [ '**' ],
-					expand: true,
-					dest: ''
-				}]
-			},
-
-		// Copy the files we need from the src folder to appfog/public
-
-			generated: {
+			src: {
 				files: [{
 					expand: true,
-					cwd: 'project/styles',
+					cwd: 'project/src',
 					src: ['**'],
-					dest: 'generated'
+					dest: 'build/'
 				}]
 			},
-
-},
-		concat: {
-			options: {
-				process: {
-					data: { version: '<%= pkg.version %>' }
-				}
-			},
-			legacy: {
-				src: [ 'src/CSVParser.js', 'src/json2.js' ],
-				dest: 'build/CSVParser-legacy.js'
+			assets: {
+				files: [{
+					expand: true,
+					cwd: 'project/assets',
+					src: ['**'],
+					dest: 'build/assets/'
+				}]
 			}
 		},
-
-		uglify: {
-			main: {
-				src: 'build/CSVParser.js',
-				dest: 'build/CSVParser.min.js'
-			},
-			min: {
-				src: 'build/CSVParser-legacy.js',
-				dest: 'build/CSVParser-legacy.min.js'
-			}
-		},
-
-		qunit: {
-			main: 'test/index.html'
-		},
-
 
 		// Main watch task. Kick this off by entering `grunt watch`. Now, any time you change the files below,
 		// the relevant tasks will execute
 		watch: {
+			options: {
+				interrupt: true
+			},
+			src: {
+				files: 'project/src/**/*',
+				tasks: 'copy:src'
+			},
+			assets: {
+				files: 'project/assets/**/*',
+				tasks: 'copy:assets'
+			},
 			sass: {
 				files: 'project/styles/*.scss',
-				tasks: 'sass',
-				interrupt: true
+				tasks: 'sass'
 			}
 		},
 			// Compile .scss files
 		sass: {
-			options: {
-				style: 'compressed'
-				},	
-
-			dev: {
-				files: {
-					'generated/min.css': 'project/styles/*.scss'
-				},
+			main: {
+				files: [{
+					src: 'Project/styles/main.scss',
+					dest: 'build/min.css'
+				}],
 				options: {
-					debugInfo: true
+					debugInfo: '<%= prod ? false : true %>',
+					style: ( '<%= min ? "compressed" : "expanded" %>' )
 				}
-			},
-
+			}
 		},
 
-});
+		clean: {
+			build: 'build/'
+		},
+
+		fetch: {
+			csv: {
+				url: 'https://docs.google.com/spreadsheet/pub?key=0Amx0ykTxmI2KdEd1cTNNSUZaRUhXcVluLTJ4TmFpbnc&output=csv',
+				dest: 'Project/src/data.csv'
+			}
+		}
+
+	});
 
 
 
 
-	grunt.loadNpmTasks('grunt-contrib-watch');
-	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-contrib-sass' );
 	grunt.loadNpmTasks( 'grunt-contrib-copy' );
 	grunt.loadNpmTasks( 'grunt-contrib-concat' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-qunit' );
+	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 
-	grunt.registerTask( 'build', [ 'default','copy:build', 'concat', 'uglify'] );
+	grunt.loadNpmTasks( 'grunt-fetch' );
+
+	grunt.registerTask( 'build', [
+		'clean:build',
+		'copy:src',
+		'copy:assets',
+		'sass'
+	]);
 
 		// Default task.
 	grunt.registerTask( 'default', [
-
-		'sass',
-		'copy',
-		'concat', 
-		'uglify'
-
-
+		'build', 
+		'watch'
 	]);
-
-	// aliases
-	grunt.registerTask( 'server', 'connect:server' );
-	grunt.registerTask( 'sanitycheck', 'connect:sanitycheck' );
 
 };

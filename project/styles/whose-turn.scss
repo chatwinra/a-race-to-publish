@@ -1,0 +1,38 @@
+.whose-turn {
+	position: absolute;
+	top: 0;
+	left: 50%;
+}
+
+.whose-turn-info {
+	position: absolute;
+	text-align: center;
+	top: 0.3em;
+	width: 6em;
+	left: -3em;
+	line-height: 1.2;
+}
+
+.whose-turn-player, .whose-turn-opponent {
+	position: absolute;
+	font-size: 2em;
+	opacity: 0.1;
+
+	-webkit-transition: opacity 0.2s;
+	-moz-transition: opacity 0.2s;
+	-ms-transition: opacity 0.2s;
+	-o-transition: opacity 0.2s;
+	transition: opacity 0.2s;
+
+	&.active {
+		opacity: 1;
+	}
+}
+
+.whose-turn-player {
+	left: -3em;
+}
+
+.whose-turn-opponent {
+	right: -3em;
+}

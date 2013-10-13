@@ -1,0 +1,70 @@
+@import "base";
+
+body {
+	font-family: 'Varela Round', 'Arial', 'serif';
+	font-size: 16px;
+	color: #333;
+	background: url(assets/images/grid2x.png);
+	background-size: 200px 200px;
+	margin: 0;
+	min-width: 20em;
+	line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Dosis', sans-serif;
+	margin: 0 0 0.4em 0;
+}
+
+h1 {
+	font-size: 3em;
+}
+
+h2 {
+	font-size: 2em;
+	font-weight: bold;
+}
+h3 {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+
+p {
+	margin: 0 0 1em 0;
+}
+
+a {
+	color: $blue;
+	text-decoration: none;
+}
+
+button {
+	border: 1px solid #777777;
+	background: #386BF5;
+	color: white;
+	padding: 0.3em;
+	cursor: pointer;
+	border-radius: 0.3em;
+	display: block;
+	margin: 0 auto 0.5em auto;
+}
+
+.info {
+	background-color: #eee;
+	border: 1px solid #aaa;
+	border-radius: 0.2em;
+	box-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+	padding: 1em 2em;
+	margin: 0;
+	@include border-box;
+}
+
+@import "layout";
+@import "card";
+@import "footer";
+@import "pending";
+@import "instructions";
+@import "dialog";
+@import "whose-turn";
+@import "header";
