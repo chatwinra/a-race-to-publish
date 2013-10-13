@@ -40,16 +40,14 @@ a {
 }
 
 button {
-    border: 1px solid #777777;
-    background: #386BF5;
-    width: 20%;
-    color: white;
-    padding: 0.3em;
-    cursor: pointer;
-    -moz-border-radius: 0.3em;
-    -webkit-border-radius: 0.3em;
-    display: block;
-    margin: 0 auto 0.5em auto;
+	border: 1px solid #777777;
+	background: #386BF5;
+	color: white;
+	padding: 0.3em;
+	cursor: pointer;
+	border-radius: 0.3em;
+	display: block;
+	margin: 0 auto 0.5em auto;
 }
 
 .info {
