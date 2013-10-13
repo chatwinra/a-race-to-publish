@@ -77,8 +77,8 @@
 }
 
 .field {
-	background-color: $blue;
-	color: white;
+	background-color: $light-blue;
+	color: $blue;
 	cursor: pointer;
 	line-height: 1;
 	padding: 0.5em;
@@ -88,8 +88,34 @@
 	&:last-child {
 		margin: 0;
 	}
+
+	&.selected {
+		background-color: $blue;
+		color: white;
+	}
 }
 
 .stat {
 	float: right;
+}
+
+.stack-count {
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	width: 4em;
+	line-height: 1;
+
+	.player & {
+		left: -5em;
+	}
+
+	.opponent & {
+		right: -5em;
+	}
+
+	strong {
+		display: block;
+		font-size: 1.8em;
+	}
 }
