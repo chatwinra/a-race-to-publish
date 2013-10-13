@@ -3,7 +3,7 @@
 	<!--start off with just the back showing as no card is selected-->
 	<div class='player'>
 		<h2>You</h2>
-		
+
 		<div class='card'>	
 			{{^playerCard}}
 				<div class='card-back {{ pending ? "faded" : "" }}'></div>
@@ -42,6 +42,13 @@
 					</div>
 				</div>
 			{{/pending}}
+
+			{{^pending}}
+				<div class='stack-count' intro='fade' outro='fade'>
+					<strong>{{playerHand.length}}</strong>
+					<span>cards</span>
+				</div>
+			{{/pending}}
 		</div>
 	</div>
 
@@ -50,12 +57,12 @@
 	<div class='opponent'>
 		<h2>Opponent</h2>
 		<div class='card'>
-			{{^compCard}}
+			{{^opponentCard}}
 				<div class='card-back {{ pending ? "faded" : "" }}'></div>
-			{{/compCard}}
+			{{/opponentCard}}
 
 			<!--when the card is selected, it shows-->
-			{{#compCard}}
+			{{#opponentCard}}
 				<div class='card-front'>
 					<p class='name'>{{name}} ({{discipline}})</p>
 					<ul class='fields'>
@@ -76,22 +83,35 @@
 						<p>{{description}}</p>
 					</div>
 				</div>
-			{{/compCard}}
+			{{/opponentCard}}
 
 			{{#showInstructions}}
-				<div class='instructions-wrapper' intro='fade' outro='fade'>
+				<div class='instructions-wrapper' intro='fade'>
 					<p class='info'>pick a stat to compete on. If it's higher than the same stat on this card, you win</p>
 				</div>
 			{{/showInstructions}}
+
+			{{^pending}}
+				<div class='stack-count' intro='fade' outro='fade'>
+					<strong>{{opponentHand.length}}</strong>
+					<span>cards</span>
+				</div>
+			{{/pending}}
 		</div>
 	</div>
 
 	{{#dialog}}
 		<div class='dialog-wrapper'>
 			<p class='dialog info'>
-				{{dialog}}
+				{{message}}
 
-				<button on-tap='nextRound'>Next round</button>
+				{{#endgame}}
+					<button on-tap='playAgain'>Play another game</button>
+				{{/endgame}}
+
+				{{^endgame}}
+					<button on-tap='nextTurn'>Next turn</button>
+				{{/endgame}}
 			</p>
 		</div>
 	{{/dialog}}
