@@ -89,6 +89,19 @@
 			game.playerCard = game.playerHand.shift();
 			game.opponentCard = game.opponentHand.shift();
 
+			// preload opponent card image
+			preload( 'assets/mugshots/' + game.opponentCard.image + '.jpg' );
+
+			// preload next pair of images
+			if ( game.playerHand[0] ) {
+				preload( 'assets/mugshots/' + game.playerHand[0].image + '.jpg' );
+			}
+
+			if ( game.opponentHand[0] ) {
+				preload( 'assets/mugshots/' + game.opponentHand[0].image + '.jpg' );
+			}
+
+			// update view
 			game.view.set({
 				playerCard: game.playerCard,
 				opponentCard: false,
@@ -205,7 +218,7 @@
 		};
 
 		xhr.send();
-	};
+	}
 
 	function shuffle ( array ) {
 		var counter = array.length, temp, index;
@@ -222,6 +235,12 @@
 		}
 
 		return array;
-	};
+	}
+
+	function preload ( url ) {
+		var image = new Image();
+		image.src = url;
+		console.log( 'preloaded', url );
+	}
 
 }());
