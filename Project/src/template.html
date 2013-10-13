@@ -1,14 +1,3 @@
-<!--the rules and first button option which fetches a card for the player-->
-
-<div class='rules'>
-	<!--this controls the 'play again' button so it only appears at the end-->
-	{{#reset}}
-		<h1>{{message}}</h1>
-		<h2>Play Again!</h2>  
-		<button on-click='playAgain'>Play Again!</button>
-	{{/reset}}
-</div>
-
 <!--the main card container, 'wrap' contains the cards which float left and right-->
 <div class='wrap'>
 	<!--start off with just the back showing as no card is selected-->
@@ -101,6 +90,8 @@
 		<div class='dialog-wrapper'>
 			<p class='dialog info'>
 				{{dialog}}
+
+				<button on-tap='nextRound'>Next round</button>
 			</p>
 		</div>
 	{{/dialog}}
